@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Доктор и Лаборатория — приватная медицина. Вариант «Приватная»</title>
+<meta name="description" content="Приватные медицинские центры: анализы, УЗИ, врачи, косметология. Москва и Одинцово. RU / SR.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Onest:wght@400;500;600&display=swap">
+<style>
+/* ============ Вариант 04 «Приватная медицина» · воздух и печать ============
+   Монохром «бумага/чернила», красный — как редкая сургучная печать.
+   Serif Cormorant Garamond оправдан приватным позиционированием.
+   Двуязычность RU/SR: переключатель + сербское эхо под заголовками. */
+:root{
+  --paper:#FCFCFA;
+  --ink:#171419;
+  --muted:#6F6B72;
+  --hair:#E6E4DF;
+  --red:#E9283C;
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --sans:"Onest",system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.65;font-size:16px}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;border:0;background:none;cursor:pointer;color:inherit}
+.container{max-width:1140px;margin:0 auto;padding:0 28px}
+
+/* язык: пары .ru/.sr переключаются классом на body */
+.sr{display:none}
+body.lang-sr .ru{display:none}
+body.lang-sr .sr{display:inline}
+body.lang-sr .sr-block{display:block}
+
+/* сербское эхо под русским заголовком */
+.echo{display:block;margin-top:10px;font-family:var(--sans);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:500}
+body.lang-sr .echo{display:none}
+
+/* мягкое появление (MOTION 3) */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.reveal.is-in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  *{transition:none!important}
+}
+</style>
+<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+<style>
+
+/* шапка */
+.header{position:sticky;top:0;z-index:50;background:rgba(252,252,250,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--hair)}
+.header .container{display:flex;align-items:center;gap:32px;height:78px}
+.wordmark{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:.01em}
+.wordmark i{font-style:italic;color:var(--red)}
+.nav{display:flex;gap:30px;font-size:14px;font-weight:500;color:var(--muted);margin-left:auto;letter-spacing:.02em}
+.nav a{position:relative;padding-bottom:3px}
+.nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--ink);transition:width .25s}
+.nav a:hover{color:var(--ink)}
+.nav a:hover::after{width:100%}
+.lang{display:flex;border:1px solid var(--hair);border-radius:999px;overflow:hidden;font-size:12.5px;font-weight:600;letter-spacing:.06em}
+.lang button{padding:7px 14px;color:var(--muted);transition:background .2s,color .2s}
+.lang button.is-active{background:var(--red);color:#fff}
+.header__phone{font-size:14.5px;font-weight:600;white-space:nowrap}
+@media(max-width:960px){.nav{display:none}.header__phone{display:none}}
+
+/* hero: манифест с асимметрией */
+.hero{padding:84px 0 90px}
+.hero__inner{display:grid;grid-template-columns:7fr 5fr;gap:64px;align-items:center}
+.hero__media{margin-top:40px} /* лёгкая асимметрия: фото ниже текста */
+.hero h1{font-family:var(--serif);font-size:clamp(46px,6.4vw,84px);line-height:1.02;font-weight:500;letter-spacing:-.01em}
+.hero h1 i{font-style:italic;color:var(--red)}
+.hero__lead{margin-top:30px;color:var(--muted);font-size:17px;max-width:26rem}
+.hero__cta{margin-top:44px;display:flex;gap:26px;align-items:center;flex-wrap:wrap}
+.btn-seal{display:inline-flex;align-items:center;gap:12px;background:var(--ink);color:#fff;border-radius:999px;padding:16px 32px;font-size:15px;font-weight:600;letter-spacing:.02em;transition:background .25s}
+.btn-seal:hover{background:var(--red)}
+.hero__phone{font-size:15px;color:var(--muted)}
+.hero__phone a{color:var(--ink);font-weight:600;border-bottom:1px solid var(--hair);transition:border-color .2s}
+.hero__phone a:hover{border-color:var(--ink)}
+.hero__media{position:relative}
+.hero__media img{aspect-ratio:4/5;object-fit:cover;width:100%;object-position:center 20%}
+.hero__caption{margin-top:14px;font-size:13px;color:var(--muted);letter-spacing:.04em}
+@media(max-width:900px){.hero{padding:70px 0 60px}.hero__inner{grid-template-columns:1fr;gap:44px}}
+
+/* факты: одна строка, hairlines */
+.facts{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.facts .container{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.fact{padding:30px 28px;border-right:1px solid var(--hair)}
+.fact:first-child{padding-left:0}
+.fact:last-child{border-right:0}
+.fact b{font-family:var(--serif);font-size:30px;font-weight:600;display:block;line-height:1.1}
+.fact span{font-size:13px;color:var(--muted);letter-spacing:.03em}
+@media(max-width:900px){.facts .container{grid-template-columns:1fr 1fr}.fact{padding-left:0}.fact:nth-child(2n){border-right:0;padding-left:28px}}
+
+/* услуги: меню-прейскурант */
+.menu{padding:110px 0}
+.menu__head{max-width:34rem;margin-bottom:64px}
+.menu h2{font-family:var(--serif);font-size:clamp(34px,4vw,52px);font-weight:500;line-height:1.06}
+.menu__row{display:grid;grid-template-columns:5fr 4fr 2fr 1fr;gap:24px;align-items:baseline;padding:30px 0;border-top:1px solid var(--hair);transition:padding-left .3s}
+.menu__row:last-of-type{border-bottom:1px solid var(--hair)}
+.menu__row:hover{padding-left:14px}
+.menu__name{font-family:var(--serif);font-size:clamp(24px,2.6vw,32px);font-weight:500;line-height:1.1}
+.menu__desc{font-size:14.5px;color:var(--muted)}
+.menu__price{font-size:15px;font-weight:600;white-space:nowrap;text-align:right}
+.menu__go{text-align:right;font-size:20px;color:var(--muted);transition:color .2s,transform .2s;display:inline-block}
+.menu__row:hover .menu__go{color:var(--red);transform:translateX(4px)}
+@media(max-width:860px){.menu__row{grid-template-columns:1fr;gap:8px}.menu__price,.menu__go{text-align:left}}
+
+/* приватность: асимметричный сплит */
+.private{padding:0 0 110px}
+.private__inner{display:grid;grid-template-columns:5fr 6fr;gap:80px;align-items:center}
+.private__media img{aspect-ratio:5/6;object-fit:cover;width:100%}
+.private h2{font-family:var(--serif);font-size:clamp(30px,3.6vw,46px);font-weight:500;line-height:1.08}
+.private p{margin-top:22px;color:var(--muted);max-width:30rem}
+.private__list{margin-top:30px;display:grid;gap:0;max-width:30rem}
+.private__item{padding:16px 0;border-top:1px solid var(--hair);font-size:15px;display:flex;gap:14px;align-items:baseline}
+.private__item::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--red);flex:none;transform:translateY(-2px)}
+@media(max-width:900px){.private__inner{grid-template-columns:1fr;gap:40px}}
+
+/* врачи: имена как посвящения */
+.staff{padding:0 0 110px}
+.staff h2{font-family:var(--serif);font-size:clamp(30px,3.6vw,46px);font-weight:500;line-height:1.08;margin-bottom:54px;max-width:30rem}
+.staff__grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:44px 56px}
+.person{border-top:1px solid var(--hair);padding-top:20px}
+.person__name{font-family:var(--serif);font-size:25px;font-weight:600;line-height:1.15}
+.person__spec{margin-top:6px;font-size:13.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);font-weight:600}
+.person__exp{margin-top:10px;font-size:14px;color:var(--muted)}
+@media(max-width:900px){.staff__grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.staff__grid{grid-template-columns:1fr}}
+
+/* центры: адресные строки */
+.places{padding:0 0 110px}
+.places h2{font-family:var(--serif);font-size:clamp(30px,3.6vw,46px);font-weight:500;line-height:1.08;margin-bottom:54px;max-width:30rem}
+.place{display:grid;grid-template-columns:3fr 4fr 3fr 2fr;gap:24px;align-items:baseline;padding:26px 0;border-top:1px solid var(--hair)}
+.place:last-of-type{border-bottom:1px solid var(--hair)}
+.place__name{font-family:var(--serif);font-size:26px;font-weight:600}
+.place__addr{font-size:14.5px;color:var(--muted)}
+.place__hours{font-size:14.5px}
+.place__link{text-align:right;font-size:14px;font-weight:600;color:var(--red)}
+.place__link:hover{color:var(--ink)}
+@media(max-width:860px){.place{grid-template-columns:1fr;gap:6px}.place__link{text-align:left}}
+
+/* финал */
+.final{padding:0 0 130px;text-align:center}
+.final__rule{width:56px;height:2px;background:var(--red);margin:0 auto 44px}
+.final h2{font-family:var(--serif);font-size:clamp(34px,4.6vw,58px);font-weight:500;line-height:1.05;max-width:20ch;margin:0 auto}
+.final p{margin:22px auto 0;color:var(--muted);max-width:26rem}
+.final .btn-seal{margin-top:40px}
+
+/* футер */
+.footer{border-top:1px solid var(--hair);padding:44px 0;font-size:14px;color:var(--muted)}
+.footer__row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.footer__row a{color:var(--ink);font-weight:500}
+.footer__legal{margin-top:20px;font-size:12.5px}
+.footer__disclaimer{margin-top:8px;font-size:12.5px}
+
+/* модалка */
+.modal{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:20px}
+.modal.is-open{display:grid}
+.modal__backdrop{position:absolute;inset:0;background:rgba(23,20,25,.6)}
+.modal__card{position:relative;width:min(520px,100%);background:var(--paper);padding:48px;border:1px solid var(--hair)}
+.modal__close{position:absolute;top:14px;right:16px;font-size:26px;color:var(--muted);width:38px;height:38px}
+.modal__card h2{font-family:var(--serif);font-size:32px;font-weight:500;margin-bottom:10px}
+.modal__card>p{color:var(--muted);font-size:14.5px;margin-bottom:26px}
+.modal__form{display:grid;gap:16px}
+.modal__form label{display:grid;gap:7px;font-size:13px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.modal__form input,.modal__form select{height:50px;border:0;border-bottom:1px solid var(--hair);background:transparent;font:inherit;font-size:16px;color:var(--ink);padding:0 2px;border-radius:0}
+.modal__form input:focus,.modal__form select:focus{outline:none;border-color:var(--red)}
+.modal__form .btn-seal{justify-content:center;margin-top:10px}
+.modal__form small{color:var(--muted);font-size:12px;letter-spacing:0;text-transform:none;line-height:1.5}
+</style>
+</head>
+<body>
+
+<header class="header" id="top">
+  <div class="container">
+    <a class="wordmark" href="#top">Доктор <i>и</i> Лаборатория</a>
+    <nav class="nav" aria-label="Меню">
+      <a href="#menu"><span class="ru">Услуги</span><span class="sr">Usluge</span></a>
+      <a href="#staff"><span class="ru">Врачи</span><span class="sr">Lekari</span></a>
+      <a href="#places"><span class="ru">Центры</span><span class="sr">Centri</span></a>
+      <a href="#final"><span class="ru">Контакты</span><span class="sr">Kontakt</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Язык / Jezik">
+      <button type="button" class="is-active" data-lang="ru">RU</button>
+      <button type="button" data-lang="sr">SR</button>
+    </div>
+    <a href="tel:+74951234567" class="header__phone">+7 495 123-45-67</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero__inner">
+    <div>
+      <h1>
+        <span class="ru">Медицина <i>без суеты</i></span><span class="sr">Medicina <i>bez žurbe</i></span>
+        <span class="echo">Medicina bez žurbe</span>
+      </h1>
+      <p class="hero__lead">
+        <span class="ru">Три приватных центра в Москве и Одинцово: анализы, УЗИ экспертного класса, врачи и косметология. Внимательно и без очередей.</span>
+        <span class="sr">Tri privatna centra u Moskvi i Odincovu: analize, ultrazvuk ekspertske klase, lekari i kozmetologija. Pažljivo i bez redova.</span>
+      </p>
+      <div class="hero__cta">
+        <button class="btn-seal" type="button" data-book>
+          <span class="ru">Записаться на приём</span><span class="sr">Zakažite pregled</span>
+        </button>
+        <div class="hero__phone">
+          <span class="ru">или по телефону</span><span class="sr">ili telefonom</span>
+          <a href="tel:+74951234567">+7 495 123-45-67</a>
+        </div>
+      </div>
+    </div>
+    <figure class="hero__media reveal">
+      <img src="../assets/hands.jpg" alt="Руки врача" width="1024" height="1280">
+      <figcaption class="hero__caption">
+        <span class="ru">Приём 7 дней в неделю, ежедневно с 8:00</span>
+        <span class="sr">Prijem 7 dana u nedelji, svakog dana od 8:00</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ФАКТЫ -->
+<section class="facts">
+  <div class="container">
+    <div class="fact reveal"><b>2017</b><span class="ru">работаем с этого года</span><span class="sr">radimo od ove godine</span></div>
+    <div class="fact reveal"><b>4 500</b><span class="ru">анализов в каталоге DNKOM</span><span class="sr">analiza u katalogu DNKOM</span></div>
+    <div class="fact reveal"><b>12–22</b><span class="ru">лет опыта у наших врачей</span><span class="sr">godina iskustva naših lekara</span></div>
+    <div class="fact reveal"><b>4.9 / 5</b><span class="ru">по 380+ отзывам</span><span class="sr">na osnovu 380+ recenzija</span></div>
+  </div>
+</section>
+
+<!-- УСЛУГИ: меню -->
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="menu__head reveal">
+      <h2>
+        <span class="ru">Всё необходимое, в одном месте</span><span class="sr">Sve što je potrebno, na jednom mestu</span>
+        <span class="echo">Sve na jednom mestu</span>
+      </h2>
+    </div>
+
+    <div class="menu__row reveal">
+      <div class="menu__name"><span class="ru">Анализы</span><span class="sr">Analize</span></div>
+      <div class="menu__desc">
+        <span class="ru">Лаборатория DNKOM, результаты в течение суток, запись не нужна</span>
+        <span class="sr">Laboratorija DNKOM, rezultati u roku od 24 časa, bez zakazivanja</span>
+      </div>
+      <div class="menu__price"><span class="ru">от 290 ₽</span><span class="sr">od 290 ₽</span></div>
+      <span class="menu__go" aria-hidden="true">→</span>
+    </div>
+    <div class="menu__row reveal">
+      <div class="menu__name"><span class="ru">УЗИ</span><span class="sr">Ultrazvuk</span></div>
+      <div class="menu__desc">
+        <span class="ru">Экспертный класс, протокол на руки за 15 минут</span>
+        <span class="sr">Ekspertska klasa, protokol za 15 minuta</span>
+      </div>
+      <div class="menu__price"><span class="ru">от 1 400 ₽</span><span class="sr">od 1 400 ₽</span></div>
+      <span class="menu__go" aria-hidden="true">→</span>
+    </div>
+    <div class="menu__row reveal">
+      <div class="menu__name"><span class="ru">Врачи</span><span class="sr">Lekari</span></div>
+      <div class="menu__desc">
+        <span class="ru">Шесть специальностей, расписание — под ваш запрос</span>
+        <span class="sr">Šest specijalnosti, raspored po vašoj meri</span>
+      </div>
+      <div class="menu__price"><span class="ru">от 1 800 ₽</span><span class="sr">od 1 800 ₽</span></div>
+      <span class="menu__go" aria-hidden="true">→</span>
+    </div>
+    <div class="menu__row reveal">
+      <div class="menu__name"><span class="ru">Косметология</span><span class="sr">Kozmetologija</span></div>
+      <div class="menu__desc">
+        <span class="ru">Врач-дерматолог до процедуры, а не после</span>
+        <span class="sr">Dermatolog pre procedure, a ne posle</span>
+      </div>
+      <div class="menu__price"><span class="ru">консультация — бесплатно</span><span class="sr">konsultacija besplatna</span></div>
+      <span class="menu__go" aria-hidden="true">→</span>
+    </div>
+  </div>
+</section>
+
+<!-- ПРИВАТНОСТЬ -->
+<section class="private">
+  <div class="container private__inner">
+    <figure class="private__media reveal">
+      <img src="../assets/center-interior.jpg" alt="Интерьер центра" loading="lazy">
+    </figure>
+    <div class="reveal">
+      <h2>
+        <span class="ru">Тишина, время и внимание</span><span class="sr">Tišina, vreme i pažnja</span>
+        <span class="echo">Tišina, vreme i pažnja</span>
+      </h2>
+      <p>
+        <span class="ru">Мы сознательно небольшая сеть. Администратор знает пациентов по имени, врач не смотрит на часы, а результаты объясняют словами, а не ссылкой на PDF.</span>
+        <span class="sr">Namerno smo mala mreža. Administrator zna pacijente po imenu, lekar ne gleda na sat, a rezultati se objašnjavaju rečima, a ne PDF linkom.</span>
+      </p>
+      <div class="private__list">
+        <div class="private__item">
+          <span><span class="ru">Один забор крови — до 4 500 показателей</span><span class="sr">Jedno vađenje krvi, do 4 500 parametara</span></span>
+        </div>
+        <div class="private__item">
+          <span><span class="ru">Результаты принимают во всех клиниках Москвы</span><span class="sr">Rezultate prihvataju sve klinike u Moskvi</span></span>
+        </div>
+        <div class="private__item">
+          <span><span class="ru">Выезд на дом в Москве и ближайшем Подмосковье</span><span class="sr">Kućne posete u Moskvi i okolini</span></span>
+        </div>
+        <div class="private__item">
+          <span><span class="ru">Детям — с рождения, с детской зоной ожидания</span><span class="sr">Deca od rođenja, sa dečijom zonom čekanja</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ВРАЧИ -->
+<section class="staff" id="staff">
+  <div class="container">
+    <h2 class="reveal">
+      <span class="ru">Врачи, которые ведут вас годами</span><span class="sr">Lekari koji vas prate godinama</span>
+      <span class="echo">Vaši lekari</span>
+    </h2>
+    <div class="staff__grid">
+      <div class="person reveal">
+        <div class="person__name">Ольга Берсенева</div>
+        <div class="person__spec"><span class="ru">Терапевт</span><span class="sr">Internista</span></div>
+        <div class="person__exp"><span class="ru">18 лет практики · Спартак, Спортивная</span><span class="sr">18 godina prakse · Spartak, Sportivnaja</span></div>
+      </div>
+      <div class="person reveal">
+        <div class="person__name">Антон Гладышев</div>
+        <div class="person__spec"><span class="ru">Кардиолог</span><span class="sr">Kardiolog</span></div>
+        <div class="person__exp"><span class="ru">22 года практики · Спартак, Одинцово</span><span class="sr">22 godine prakse · Spartak, Odincovo</span></div>
+      </div>
+      <div class="person reveal">
+        <div class="person__name">Марина Касьянова</div>
+        <div class="person__spec"><span class="ru">Гинеколог</span><span class="sr">Ginekolog</span></div>
+        <div class="person__exp"><span class="ru">15 лет практики · Спортивная</span><span class="sr">15 godina prakse · Sportivnaja</span></div>
+      </div>
+      <div class="person reveal">
+        <div class="person__name">Елена Лебедева</div>
+        <div class="person__spec"><span class="ru">Эндокринолог</span><span class="sr">Endokrinolog</span></div>
+        <div class="person__exp"><span class="ru">12 лет практики · Спартак, Одинцово</span><span class="sr">12 godina prakse · Spartak, Odincovo</span></div>
+      </div>
+      <div class="person reveal">
+        <div class="person__name">Дмитрий Соколов</div>
+        <div class="person__spec"><span class="ru">Невролог</span><span class="sr">Neurolog</span></div>
+        <div class="person__exp"><span class="ru">19 лет практики · Спартак, Спортивная</span><span class="sr">19 godina prakse · Spartak, Sportivnaja</span></div>
+      </div>
+      <div class="person reveal">
+        <div class="person__name">Ирина Воронцова</div>
+        <div class="person__spec"><span class="ru">Дерматолог-косметолог</span><span class="sr">Dermatolog-kozmetolog</span></div>
+        <div class="person__exp"><span class="ru">14 лет практики · Спартак</span><span class="sr">14 godina prakse · Spartak</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ЦЕНТРЫ -->
+<section class="places" id="places">
+  <div class="container">
+    <h2 class="reveal">
+      <span class="ru">Три адреса</span><span class="sr">Tri adrese</span>
+      <span class="echo">Tri adrese</span>
+    </h2>
+    <div class="place reveal">
+      <div class="place__name">Спартак</div>
+      <div class="place__addr"><span class="ru">Москва, ул. Спартаковская, 12 · м. Спартак</span><span class="sr">Moskva, ul. Spartakovska 12 · st. Spartak</span></div>
+      <div class="place__hours"><span class="ru">ежедневно 8:00–21:00</span><span class="sr">svakog dana 8:00–21:00</span></div>
+      <a class="place__link" href="https://yandex.ru/maps/?text=Москва+ул+Спартаковская+12" target="_blank" rel="noopener"><span class="ru">На карте</span><span class="sr">Na mapi</span></a>
+    </div>
+    <div class="place reveal">
+      <div class="place__name">Спортивная</div>
+      <div class="place__addr"><span class="ru">Москва, Хамовники, ул. Усачёва, 19 · м. Спортивная</span><span class="sr">Moskva, Hamovniki, ul. Usačova 19 · st. Sportivnaja</span></div>
+      <div class="place__hours"><span class="ru">пн–сб 9:00–20:00</span><span class="sr">pon–sub 9:00–20:00</span></div>
+      <a class="place__link" href="https://yandex.ru/maps/?text=Москва+ул+Усачёва+19" target="_blank" rel="noopener"><span class="ru">На карте</span><span class="sr">Na mapi</span></a>
+    </div>
+    <div class="place reveal">
+      <div class="place__name">Одинцово</div>
+      <div class="place__addr"><span class="ru">Одинцово МО, ул. Молодёжная, 4</span><span class="sr">Odincovo, ul. Molodjožnaja 4</span></div>
+      <div class="place__hours"><span class="ru">ежедневно 8:00–20:00</span><span class="sr">svakog dana 8:00–20:00</span></div>
+      <a class="place__link" href="https://yandex.ru/maps/?text=Одинцово+ул+Молодёжная+4" target="_blank" rel="noopener"><span class="ru">На карте</span><span class="sr">Na mapi</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ФИНАЛ -->
+<section class="final" id="final">
+  <div class="container reveal">
+    <div class="final__rule" aria-hidden="true"></div>
+    <h2><span class="ru">Запишитесь сегодня. Примем уже завтра</span><span class="sr">Zakažite danas. Primamo već sutra</span></h2>
+    <p>
+      <span class="ru">Администратор перезвонит, уточнит направление и подберёт удобное время в ближайшем центре.</span>
+      <span class="sr">Administrator će vas pozvati, precizirati uslugu i pronaći vreme koje vam odgovara.</span>
+    </p>
+    <button class="btn-seal" type="button" data-book>
+      <span class="ru">Записаться на приём</span><span class="sr">Zakažite pregled</span>
+    </button>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__row">
+      <span class="wordmark" style="font-size:17px">Доктор <i>и</i> Лаборатория</span>
+      <span><a href="tel:+74951234567">+7 495 123-45-67</a> · <a href="mailto:hello@doctor-lab.ru">hello@doctor-lab.ru</a> · Telegram · WhatsApp</span>
+    </div>
+    <div class="footer__legal">
+      © 2017–2026 «Доктор и Лаборатория» ·
+      <span class="ru">Лицензия №ЛО-77-01-019283 от 14.03.2018 · Политика конфиденциальности</span>
+      <span class="sr">Licenca br. LO-77-01-019283 od 14.03.2018 · Politika privatnosti</span>
+    </div>
+    <div class="footer__disclaimer">
+      <span class="ru">Имеются противопоказания. Необходима консультация специалиста.</span>
+      <span class="sr">Postoje kontraindikacije. Neophodna je konsultacija specijaliste.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- МОДАЛКА -->
+<div class="modal" data-modal role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+  <div class="modal__backdrop" data-modal-close></div>
+  <div class="modal__card">
+    <button class="modal__close" type="button" data-modal-close aria-label="Закрыть / Zatvori">×</button>
+    <h2 id="modal-title"><span class="ru">Запись на приём</span><span class="sr">Zakazivanje pregleda</span></h2>
+    <p>
+      <span class="ru">Оставьте контакты — администратор уточнит направление, центр и удобное время.</span>
+      <span class="sr">Ostavite kontakt, administrator će precizirati uslugu, centar i vreme.</span>
+    </p>
+    <form class="modal__form" data-modal-form>
+      <label><span class="ru">Имя</span><span class="sr">Ime</span><input name="name" required></label>
+      <label><span class="ru">Телефон</span><span class="sr">Telefon</span><input name="phone" type="tel" placeholder="+7 ___ ___-__-__" required></label>
+      <button class="btn-seal" type="submit"><span class="ru">Отправить</span><span class="sr">Pošalji</span></button>
+      <small>
+        <span class="ru">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</span>
+        <span class="sr">Klikom na dugme saglasni ste sa obradom ličnih podataka.</span>
+      </small>
+    </form>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* --- язык RU/SR --- */
+  var langButtons = document.querySelectorAll('[data-lang]');
+  function setLang(lang){
+    document.body.classList.toggle('lang-sr', lang === 'sr');
+    document.documentElement.lang = lang;
+    langButtons.forEach(function(b){ b.classList.toggle('is-active', b.getAttribute('data-lang') === lang); });
+  }
+  langButtons.forEach(function(b){
+    b.addEventListener('click', function(){ setLang(b.getAttribute('data-lang')); });
+  });
+
+  /* --- мягкое появление, с уважением к reduced motion --- */
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reveals = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    reveals.forEach(function(el){ el.classList.add('is-in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) { entry.target.classList.add('is-in'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function(el){ io.observe(el); });
+  }
+
+  /* --- модалка --- */
+  var modal = document.querySelector('[data-modal]');
+  function openModal(){ modal.hidden = false; modal.classList.add('is-open'); document.body.style.overflow = 'hidden'; }
+  function closeModal(){ modal.classList.remove('is-open'); modal.hidden = true; document.body.style.overflow = ''; }
+  document.querySelectorAll('[data-book]').forEach(function(b){ b.addEventListener('click', openModal); });
+  modal.querySelectorAll('[data-modal-close]').forEach(function(b){ b.addEventListener('click', closeModal); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
+  modal.querySelector('[data-modal-form]').addEventListener('submit', function(e){
+    e.preventDefault();
+    var isSr = document.body.classList.contains('lang-sr');
+    var card = modal.querySelector('.modal__card');
+    card.innerHTML = '<button class="modal__close" type="button" aria-label="Закрыть">×</button>' +
+      '<h2>' + (isSr ? 'Hvala! Uskoro ćemo vas kontaktirati.' : 'Спасибо! Мы скоро свяжемся.') + '</h2>' +
+      '<p>' + (isSr ? 'Ovo je demonstracioni scenario prototipa.' : 'Это демонстрационный сценарий прототипа. В финальной версии заявка будет уходить в CRM/Yclients.') + '</p>';
+    card.querySelector('.modal__close').addEventListener('click', closeModal);
+  });
+})();
+</script>
+</body>
+</html>
