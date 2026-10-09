@@ -16,13 +16,14 @@ def run(command, root):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--skip-prices", action="store_true")
+    parser.add_argument("--description-budget", type=int, default=int(os.environ.get("DOCNLAB_DESCRIPTION_BUDGET", "100")))
     parser.add_argument("--sheet", default=os.environ.get("DOCNLAB_SHEET_ID"))
     parser.add_argument("--oauth", action="store_true", help="Use existing local user OAuth only")
     parser.add_argument("--require-content", action="store_true")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     if not args.skip_prices:
-        run([sys.executable, "scripts/sync_analyses.py", "--output", "data/analyses.json"], root)
+        run([sys.executable, "scripts/sync_analyses.py", "--output", "data/analyses.json", "--description-budget", str(args.description_budget)], root)
     if args.sheet:
         command = [sys.executable, "scripts/sync_content.py", "--sheet", args.sheet, "--output", "data/content.json", "--catalog", "data/analyses.json"]
         command += ["--oauth"] if args.oauth else ["--service-account-env", "GOOGLE_SERVICE_ACCOUNT_JSON"]

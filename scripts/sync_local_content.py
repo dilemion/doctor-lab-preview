@@ -13,6 +13,7 @@ import tempfile
 import os
 
 from build_site import build
+from push_main import push_main
 
 def command(args, directory):
     return subprocess.run(args, cwd=directory, check=True, capture_output=True, text=True)
@@ -55,12 +56,12 @@ def main():
         finally:
             if os.path.exists(staged):
                 os.unlink(staged)
-        exported = build(preview, Path(temporary) / "public")
         command(["git", "add", "data/content.json"], preview)
         changed = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=preview).returncode
         if changed:
             command(["git", "commit", "-m", "Обновил опубликованный контент из Google Sheets"], preview)
-            command(["git", "push", "origin", "main"], preview)
+            push_main(preview)
+        exported = build(preview, Path(temporary) / "public")
         command([sys.executable, str(root / "scripts/publish_pages.py"),
                  "--repository", str(preview), "--source", str(exported)], preview)
         print("Published content is available at https://dilemion.github.io/doctor-lab-preview/")
