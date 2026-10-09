@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "timezone": "Europe/Moscow",
+  "generated_at": "2026-10-09T12:23:30.299991Z",
+  "source": {
+    "type": "google_sheets",
+    "spreadsheet_id": "11CXcjS-anEs019mdA-snk7AMY32tbx6K1uxYWQIPZc4",
+    "url": "https://docs.google.com/spreadsheets/d/11CXcjS-anEs019mdA-snk7AMY32tbx6K1uxYWQIPZc4"
+  },
+  "settings": {},
+  "doctors": [],
+  "branches": [],
+  "reviews": [],
+  "promotions": []
+}

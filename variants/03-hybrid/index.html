@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Доктор и Лаборатория — сдать анализ или записаться к врачу. Вариант «Гибрид»</title>
+<meta content="Два сценария: анализы DNKOM без записи и приём врачей по записи. Три центра в Москве и Одинцово." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;800&amp;display=swap" rel="stylesheet"/>
+<style>
+/* ============ Вариант 03 «Гибрид» · две двери ============
+   Дуальность как система: холодный оттенок = путь «анализы»,
+   тёплый = путь «врачи», красный объединяет. Manrope — шрифт бренда. */
+:root{
+  --bg:#FAFAF8;
+  --ink:#17181A;
+  --muted:#5F6368;
+  --border:#E5E4E0;
+  --red:#E9283C;
+  --red-dark:#C81F30;
+  --lab:#EDF3F6;         /* холодный мир анализов */
+  --lab-deep:#31505E;
+  --doc:#F9F0EB;         /* тёплый мир врачей */
+  --doc-deep:#7A4A38;
+  --font:"Manrope",system-ui,sans-serif;
+  --r:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;border:0;background:none;cursor:pointer;color:inherit}
+.container{max-width:1160px;margin:0 auto;padding:0 24px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;font-weight:700;font-size:15px;padding:13px 24px;transition:background .18s,border-color .18s,transform .12s}
+.btn:active{transform:translateY(1px)}
+.btn--red{background:var(--red);color:#fff}
+.btn--red:hover{background:var(--red-dark)}
+.btn--line{border:1.5px solid var(--border);color:var(--ink);background:#fff}
+.btn--line:hover{border-color:var(--ink)}
+.btn--sm{padding:9px 16px;font-size:14px}
+
+/* маркер пути: цветной квадратик */
+.path-mark{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:9px;vertical-align:1px}
+.path-mark--lab{background:var(--lab-deep)}
+.path-mark--doc{background:var(--doc-deep)}
+
+/* шапка */
+.header{position:sticky;top:0;z-index:50;background:rgba(250,250,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+.header .container{display:flex;align-items:center;gap:26px;height:70px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;letter-spacing:-.01em}
+.brand__mark{width:36px;height:36px;border-radius:10px;background:var(--red);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:800}
+.nav{display:flex;gap:22px;font-size:14.5px;font-weight:600;color:var(--muted);margin-left:auto}
+.nav a:hover{color:var(--ink)}
+.header__phone{font-weight:700;font-size:15px;white-space:nowrap}
+@media(max-width:980px){.nav{display:none}.header__phone{display:none}}
+
+/* hero: заголовок + две двери */
+.hero{padding:60px 0 40px;text-align:center}
+.hero h1{font-size:clamp(30px,4.4vw,50px);line-height:1.1;letter-spacing:-.028em;font-weight:800;max-width:22ch;margin:0 auto}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero__lead{margin:18px auto 0;color:var(--muted);font-size:17px;max-width:34rem}
+.doors{padding:36px 0 72px}
+.doors .container{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.door{border-radius:22px;padding:40px;text-align:left;display:flex;flex-direction:column;gap:16px;transition:transform .18s,box-shadow .18s;position:relative;overflow:hidden}
+.door:hover{transform:translateY(-4px);box-shadow:0 18px 50px rgba(23,24,26,.10)}
+.door--lab{background:var(--lab)}
+.door--doc{background:var(--doc)}
+.door__kicker{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.1em}
+.door--lab .door__kicker{color:var(--lab-deep)}
+.door--doc .door__kicker{color:var(--doc-deep)}
+.door h2{font-size:clamp(24px,2.8vw,34px);letter-spacing:-.02em;line-height:1.12;font-weight:800}
+.door__facts{display:grid;gap:9px;font-size:15px;color:var(--muted)}
+.door__facts li{list-style:none;display:flex;gap:10px;align-items:baseline}
+.door__facts b{color:var(--ink);font-weight:700}
+.door__facts li::before{content:"";width:6px;height:6px;border-radius:50%;flex:none;transform:translateY(-2px)}
+.door--lab .door__facts li::before{background:var(--lab-deep)}
+.door--doc .door__facts li::before{background:var(--doc-deep)}
+.door__actions{margin-top:auto;display:flex;gap:12px;flex-wrap:wrap;padding-top:10px}
+@media(max-width:860px){.doors .container{grid-template-columns:1fr}}
+
+/* как это работает: две колонки шагов */
+.how{padding:0 0 76px}
+.how .container{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.how__col{border:1px solid var(--border);border-radius:22px;padding:34px;background:#fff}
+.how__title{font-weight:800;font-size:17px;margin-bottom:22px}
+.how__steps{display:grid;gap:0}
+.how__step{display:grid;grid-template-columns:34px 1fr;gap:14px;padding:13px 0;border-top:1px solid var(--border)}
+.how__num{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:800;color:#fff}
+.how__col--lab .how__num{background:var(--lab-deep)}
+.how__col--doc .how__num{background:var(--doc-deep)}
+.how__step b{display:block;font-size:15px}
+.how__step span{font-size:14px;color:var(--muted)}
+@media(max-width:860px){.how .container{grid-template-columns:1fr}}
+
+/* мир анализов */
+.world{padding:76px 0}
+.world--lab{background:var(--lab)}
+.world--doc{background:var(--doc)}
+.world__head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:36px;flex-wrap:wrap}
+.world__head h2{font-size:clamp(26px,3.2vw,38px);letter-spacing:-.025em;font-weight:800;line-height:1.1}
+.world__head p{color:var(--muted);max-width:30rem}
+.packs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.pack{background:#fff;border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:10px}
+.pack__name{font-weight:800;font-size:16.5px;letter-spacing:-.01em}
+.pack__desc{font-size:14px;color:var(--muted)}
+.pack__price{margin-top:auto;font-weight:800;font-size:20px;letter-spacing:-.01em;padding-top:8px}
+.pack__price small{font-size:13px;color:var(--muted);font-weight:500}
+@media(max-width:860px){.packs{grid-template-columns:1fr}}
+.world__foot{margin-top:26px;display:flex;gap:20px;align-items:center;flex-wrap:wrap;font-size:14.5px;color:var(--muted)}
+.world__foot b{color:var(--ink)}
+.link-strong{font-weight:800;color:var(--red)}
+.link-strong:hover{color:var(--red-dark)}
+
+/* мир врачей: врачи + УЗИ */
+.docs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.doc-card{background:#fff;border-radius:var(--r);padding:22px;display:flex;gap:16px;align-items:center}
+.doc-card__ava{width:56px;height:56px;flex:none;border-radius:16px;background:var(--doc);color:var(--doc-deep);display:grid;place-items:center;font-weight:800;font-size:16px}
+.doc-card__name{font-weight:800;font-size:15.5px;letter-spacing:-.01em}
+.doc-card__spec{font-size:13.5px;color:var(--muted)}
+.doc-card__exp{font-size:13px;color:var(--muted);margin-top:3px}
+.doc-card__exp b{color:var(--ink)}
+@media(max-width:860px){.docs-grid{grid-template-columns:1fr}}
+.uzi-band{margin-top:40px;background:#fff;border-radius:22px;padding:32px 34px}
+.uzi-band__head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;margin-bottom:20px}
+.uzi-band__head h3{font-size:22px;font-weight:800;letter-spacing:-.015em}
+.uzi-band__head span{font-size:14px;color:var(--muted)}
+.uzi-list{display:grid;grid-template-columns:repeat(4,1fr);gap:12px 28px;font-size:14.5px}
+.uzi-list div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px dashed var(--border)}
+.uzi-list b{font-weight:800;white-space:nowrap}
+@media(max-width:960px){.uzi-list{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.uzi-list{grid-template-columns:1fr}}
+
+/* дополнительно: единая полоса */
+.extra{padding:76px 0}
+.extra__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.extra__item{border:1px solid var(--border);border-radius:var(--r);background:#fff;padding:22px}
+.extra__item b{display:block;font-size:15.5px;font-weight:800;letter-spacing:-.01em}
+.extra__item span{display:block;margin-top:7px;font-size:13.5px;color:var(--muted)}
+.extra h2{font-size:clamp(24px,3vw,34px);letter-spacing:-.02em;font-weight:800;margin-bottom:30px}
+@media(max-width:960px){.extra__grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.extra__grid{grid-template-columns:1fr}}
+
+/* центры: нейтральные, оба маркера */
+.centers{padding:76px 0;background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.centers h2{font-size:clamp(26px,3.2vw,38px);letter-spacing:-.025em;font-weight:800;margin-bottom:8px}
+.centers__lead{color:var(--muted);margin-bottom:36px;max-width:36rem}
+.centers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.center{border:1px solid var(--border);border-radius:22px;padding:26px;display:flex;flex-direction:column;gap:12px}
+.center__name{font-size:19px;font-weight:800;letter-spacing:-.01em}
+.center__addr{font-size:14.5px;color:var(--muted)}
+.center__hours{font-size:14px;font-weight:700}
+.center__paths{display:flex;gap:14px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.center__tags{display:flex;flex-wrap:wrap;gap:6px}
+.center__tags span{font-size:12.5px;background:var(--bg);border:1px solid var(--border);border-radius:999px;padding:3px 10px;color:var(--muted)}
+.center__foot{margin-top:auto;padding-top:12px;display:flex;gap:14px;align-items:center}
+.center__map{font-size:14px;font-weight:800;color:var(--red)}
+@media(max-width:900px){.centers-grid{grid-template-columns:1fr}}
+
+/* отзывы: по одному из каждого мира */
+.reviews{padding:76px 0}
+.reviews__grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.review{border-radius:22px;padding:34px;display:flex;flex-direction:column;gap:18px}
+.review--lab{background:var(--lab)}
+.review--doc{background:var(--doc)}
+.review__path{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em}
+.review--lab .review__path{color:var(--lab-deep)}
+.review--doc .review__path{color:var(--doc-deep)}
+.review blockquote{font-size:17px;line-height:1.55;font-weight:500}
+.review figcaption{font-size:14px;color:var(--muted)}
+.review figcaption b{color:var(--ink)}
+.reviews__total{margin-top:24px;text-align:center;font-size:15px;color:var(--muted)}
+.reviews__total b{color:var(--ink)}
+@media(max-width:860px){.reviews__grid{grid-template-columns:1fr}}
+
+/* FAQ */
+.faq{padding:0 0 76px}
+.faq h2{font-size:clamp(24px,3vw,34px);letter-spacing:-.02em;font-weight:800;margin-bottom:28px}
+.faq__cols{columns:2;column-gap:22px}
+.faq-item{break-inside:avoid;background:#fff;border:1px solid var(--border);border-radius:var(--r);margin-bottom:14px;overflow:hidden}
+.faq-item summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;padding:16px 20px;font-weight:700;font-size:15px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";font-size:20px;color:var(--red);transition:transform .18s;flex:none}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item p{padding:0 20px 16px;color:var(--muted);font-size:14.5px}
+@media(max-width:860px){.faq__cols{columns:1}}
+
+/* финал: снова две двери, компактно */
+.cta{padding:0 0 76px}
+.cta__card{background:var(--ink);color:#fff;border-radius:26px;padding:52px;text-align:center}
+.cta h2{font-size:clamp(26px,3.2vw,38px);letter-spacing:-.025em;font-weight:800;line-height:1.12}
+.cta p{margin:14px auto 0;color:rgba(255,255,255,.7);max-width:32rem}
+.cta__doors{margin-top:32px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn--doorlab{background:#fff;color:var(--ink)}
+.btn--doorlab:hover{background:var(--lab)}
+.btn--doordoc{background:var(--red);color:#fff}
+.btn--doordoc:hover{background:var(--red-dark)}
+.cta__phone{margin-top:20px;font-size:15px;color:rgba(255,255,255,.7)}
+.cta__phone a{color:#fff;font-weight:800}
+
+/* футер */
+.footer{border-top:1px solid var(--border);padding:52px 0 0;font-size:15px;background:#fff}
+.footer__grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.footer__col-title{font-weight:800;font-size:14px;margin-bottom:14px}
+.footer__col ul{list-style:none;display:grid;gap:9px}
+.footer__col a{color:var(--muted)}
+.footer__col a:hover{color:var(--ink)}
+.footer__about{color:var(--muted);margin-top:12px;max-width:30rem;font-size:14.5px}
+.footer__contacts{margin-top:16px;display:grid;gap:6px;font-weight:700}
+.footer__bottom{margin-top:44px;border-top:1px solid var(--border);padding:18px 0;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.disclaimer{background:var(--ink);color:rgba(255,255,255,.75);text-align:center;font-size:12.5px;padding:10px 24px}
+@media(max-width:900px){.footer__grid{grid-template-columns:1fr 1fr}}
+
+/* модалка */
+.modal{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:20px}
+.modal.is-open{display:grid}
+.modal__backdrop{position:absolute;inset:0;background:rgba(23,24,26,.58)}
+.modal__card{position:relative;width:min(540px,100%);background:var(--bg);border-radius:22px;padding:38px;border:1px solid var(--border)}
+.modal__close{position:absolute;top:14px;right:16px;font-size:24px;color:var(--muted);width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.05)}
+.modal__eyebrow{color:var(--red);font-weight:800;font-size:12.5px;text-transform:uppercase;letter-spacing:.13em}
+.modal__card h2{font-size:27px;letter-spacing:-.02em;font-weight:800;margin:10px 0 8px}
+.modal__card>p{color:var(--muted);font-size:14.5px;margin-bottom:20px}
+.modal__form{display:grid;gap:14px}
+.modal__form label{display:grid;gap:6px;font-size:14px;color:var(--muted)}
+.modal__form input,.modal__form select{height:48px;border:1.5px solid var(--border);border-radius:12px;padding:0 14px;font:inherit;font-size:15px;color:var(--ink);background:#fff}
+.modal__form input:focus,.modal__form select:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(233,40,60,.13)}
+.modal__form small{color:var(--muted);font-size:12px;line-height:1.45}
+</style>
+<link href="../../site/data.css" rel="stylesheet"/><script defer="" src="../../site/data.js"></script></head>
+<body><div class="dl-utility"><a href="../../analyses/">Каталог анализов и цены →</a><a href="../">Все направления дизайна</a></div>
+<header class="header" id="top">
+<div class="container">
+<a class="brand" href="#top">
+<span class="brand__mark">Д·Л</span>
+      Доктор и Лаборатория
+    </a>
+<nav aria-label="Главное меню" class="nav">
+<a href="#lab"><span class="path-mark path-mark--lab"></span>Анализы</a>
+<a href="#doctors"><span class="path-mark path-mark--doc"></span>Врачи</a>
+<a href="#extra">Услуги</a>
+<a href="#centers">Центры</a>
+<a href="#faq">FAQ</a>
+</nav>
+<a class="header__phone" data-setting-phone="">Контакты будут добавлены</a>
+<button class="btn btn--red" data-book="" type="button">Записаться</button>
+</div>
+</header>
+<!-- HERO -->
+<section class="hero">
+<div class="container">
+<h1>Сдать анализы <em>или</em> показаться врачу?</h1>
+<p class="hero__lead">У нас — и то и другое, в одном центре. Выберите, с чего начать: оба пути ведут к понятному результату.</p>
+</div>
+</section>
+<!-- ДВЕ ДВЕРИ -->
+<section class="doors">
+<div class="container">
+<article class="door door--lab" id="lab-door">
+<div class="door__kicker">Путь 1 · без записи</div>
+<h2>Сдать анализ</h2>
+<ul class="door__facts"><li><span><b data-analysis-count="">—</b> позиций в каталоге ДНКом</span></li><li><span><b><a href="../../analyses/">В каталоге</a></b> · забор оплачивается отдельно</span></li><li><span>Срок и подготовка указаны в карточке исследования</span></li></ul>
+<div class="door__actions">
+<a class="btn btn--red" href="../../analyses/">Каталог анализов и комплексов</a>
+<a class="btn btn--line" href="#lab-schedule">График забора</a>
+</div>
+</article>
+<article class="door door--doc" id="doc-door">
+<div class="door__kicker">Путь 2 · по записи</div>
+<h2>Записаться к врачу</h2>
+<ul class="door__facts"><li><span>Профиль и опыт — в карточке специалиста</span></li><li><span>Стоимость приёма уточняется перед записью</span></li><li><span>Выберите удобный филиал после публикации адресов</span></li></ul>
+<div class="door__actions">
+<button class="btn btn--red" data-book="" type="button">Записаться</button>
+<a class="btn btn--line" href="#doctors">Выбрать врача</a>
+</div>
+</article>
+</div>
+</section>
+<!-- КАК ЭТО РАБОТАЕТ -->
+<section class="how">
+<div class="container">
+<div class="how__col how__col--lab">
+<div class="how__title"><span class="path-mark path-mark--lab"></span>Как сдать анализ</div>
+<div class="how__steps">
+<div class="how__step"><span class="how__num">1</span><div><b>Придите в часы забора</b><span>часы работы выбранного филиала, с паспортом</span></div></div>
+<div class="how__step"><span class="how__num">2</span><div><b>Один забор крови</b><span>всё, что назначил врач, за одно посещение</span></div></div>
+<div class="how__step"><span class="how__num">3</span><div><b>Результаты на e-mail</b><span>в течение суток, большинство — в день забора</span></div></div>
+</div>
+</div>
+<div class="how__col how__col--doc">
+<div class="how__title"><span class="path-mark path-mark--doc"></span>Как попасть к врачу</div>
+<div class="how__steps">
+<div class="how__step"><span class="how__num">1</span><div><b>Оставьте заявку</b><span>ссылка на запись и телефон появятся после подтверждения</span></div></div>
+<div class="how__step"><span class="how__num">2</span><div><b>Администратор подберёт время</b><span>специалиста и центр — за 15 минут</span></div></div>
+<div class="how__step"><span class="how__num">3</span><div><b>Приём и план действий</b><span>врач объяснит результаты и что делать дальше</span></div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- МИР АНАЛИЗОВ -->
+<section class="world world--lab" id="lab">
+<div class="container">
+<div class="world__head"><h2 class="h2">Анализы и комплексы</h2><p>Цена, срок и подготовка к исследованию — в общем каталоге.</p></div>
+<div class="dl-featured" data-codes="62.056,10.308,99.022,14.149,18.100,35.102" data-featured-analyses=""><p class="dl-empty">Загружаем анализы и цены…</p></div>
+<div class="world__foot" id="lab-schedule"><a class="dl-content-button" href="../../analyses/">Открыть все анализы</a><p class="dl-content-note">Забор биоматериала оплачивается отдельно.</p></div>
+</div>
+</section>
+<!-- МИР ВРАЧЕЙ -->
+<section class="world world--doc" id="doctors">
+<div class="container"><h2>Наши врачи</h2><div class="dl-content-grid" data-managed="doctors"><p class="dl-empty">Информация о врачах появится после подтверждения.</p></div></div>
+</section>
+<!-- ДОПОЛНИТЕЛЬНО -->
+<section class="extra" id="extra">
+<div class="container">
+<h2>И то, что не хочется откладывать</h2>
+<div class="extra__grid">
+<div class="extra__item"><b>Косметология с врачом</b><span>Дерматолог до процедуры, а не после. Лазер, инъекции, уход.</span></div>
+<div class="extra__item"><b>Капельницы и процедурная</b><span>Уколы, перевязки, восстановление — по будням и выходным.</span></div>
+<div class="extra__item"><b>Выезд на дом</b><span>Забор анализов и приём терапевта в Москве и ближайшем МО.</span></div>
+<div class="extra__item"><b>Справки и заключения</b><span>В сад, школу, ГИБДД, на работу, для бассейна.</span></div>
+</div>
+</div>
+</section>
+<!-- ЦЕНТРЫ -->
+<section class="centers" id="centers">
+<div class="container"><h2>Адреса и часы работы</h2><div class="dl-content-grid" data-managed="branches"><p class="dl-empty">Адреса и часы работы появятся после подтверждения.</p></div></div>
+</section>
+<!-- ОТЗЫВЫ -->
+<section class="reviews" id="reviews">
+<div class="container"><h2>Отзывы</h2><div class="dl-content-grid" data-managed="reviews"><p class="dl-empty">Отзывы с проверенными источниками будут добавлены.</p></div></div>
+</section>
+<!-- FAQ -->
+<section class="faq" id="faq">
+<div class="container">
+<h2>Частые вопросы</h2>
+<div class="faq__cols">
+<details class="faq-item">
+<summary>Можно ли сдать анализы без направления врача?</summary>
+<p>Да. На анализы запись не нужна — приходите в часы приёма биоматериала с паспортом. Если нужен подбор комплекса, администратор поможет выбрать.</p>
+</details>
+<details class="faq-item">
+<summary>Нужно ли быть прикреплённым к ОМС?</summary>
+<p>Нет. Мы — частная сеть медицинских центров и работаем по платным услугам и ДМС. Полис ОМС и прикрепление не требуются.</p>
+</details>
+<details class="faq-item">
+<summary>Делаете ли вы УЗИ в день обращения?</summary>
+<p>Чаще всего да — в большинстве случаев свободные слоты есть в течение 24 часов. Уточните у администратора по телефону или через онлайн-запись.</p>
+</details>
+<details class="faq-item">
+<summary>Можно ли получить заключение в электронном виде?</summary>
+<p>Да. Результаты анализов и протокол УЗИ отправляем на e-mail сразу после готовности. По запросу делаем заверенную копию на бумаге.</p>
+</details>
+<details class="faq-item">
+<summary>Принимаете ли вы детей?</summary>
+<p>Да, с 0 лет. Есть педиатр, забор крови у детей, УЗИ детских органов, справки в сад и школу. Детская зона ожидания — в каждом центре.</p>
+</details>
+<details class="faq-item">
+<summary>Как оплатить услуги?</summary>
+<p>Картой, СБП или наличными в центре. После приёма выдаём чек и справку для налогового вычета. По ДМС — по списку партнёров.</p>
+</details>
+</div>
+</div>
+</section>
+<!-- CTA -->
+<section class="cta">
+<div class="container">
+<div class="cta__card">
+<h2>С чего начнёте?</h2>
+<p>Выберите удобный центр после подтверждения адресов и контактной информации.</p>
+<div class="cta__doors">
+<a class="btn btn--doorlab" href="#lab">Сдать анализ</a>
+<button class="btn btn--doordoc" data-book="" type="button">Записаться к врачу</button>
+</div>
+<div class="cta__phone">или по телефону <a data-setting-phone="">Контакты будут добавлены</a></div>
+</div>
+</div>
+</section>
+<section class="dl-managed-section" id="promotions"><div class="container"><h2>Акции</h2><div class="dl-content-grid" data-managed="promotions"><p class="dl-empty">Сейчас нет опубликованных акций.</p></div></div></section><footer class="footer"><div class="container"><div class="brand">Доктор и Лаборатория</div><div class="dl-footer-links"><a href="../../analyses/">Анализы и цены</a><a data-setting-phone="">Контакты будут добавлены</a><a data-setting-email=""></a><a data-setting-booking="" hidden="">Онлайн-запись</a></div><div class="dl-managed-legal" data-managed-legal=""><p class="dl-content-note">Реквизиты и документы будут добавлены после подтверждения.</p></div><p class="dl-content-note">Имеются противопоказания. Необходима консультация специалиста.</p></div></footer>
+<div class="disclaimer">Имеются противопоказания. Необходима консультация специалиста.</div>
+<!-- МОДАЛКА -->
+<div aria-labelledby="modal-title" aria-modal="true" class="modal" data-modal="" hidden="" role="dialog">
+<div class="modal__backdrop" data-modal-close=""></div>
+<div class="modal__card"><button aria-label="Закрыть" class="modal__close" data-modal-close="" type="button">×</button><h2 id="modal-title">Запись на приём</h2><p data-booking-placeholder="">Онлайн-запись появится после подключения Yclients. Контакты центра будут доступны после подтверждения.</p><a class="dl-content-button" data-setting-booking="" hidden="">Открыть онлайн-запись</a></div>
+</div>
+</body>
+</html>
+

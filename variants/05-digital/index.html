@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Доктор и Лаборатория — запись онлайн за 60 секунд. Вариант «Digital»</title>
+<meta content="Онлайн-запись, результаты в личном кабинете, напоминания. Анализы DNKOM, УЗИ, врачи — 3 центра в Москве и Одинцово." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&amp;family=Rubik:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
+/* ============ Вариант 05 «Digital-first» · тёмная app-тема ============
+   Онлайн-запись и ЛК — главная ценность. Живой виджет записи в hero,
+   интерактивный превью личного кабинета. Красный осветлён для тёмного фона. */
+:root{
+  --bg:#0D0E12;
+  --panel:#15171F;
+  --panel-2:#1D2029;
+  --line:rgba(255,255,255,.09);
+  --text:#F2F3F7;
+  --muted:#9CA1B2;
+  --red:#FF4B5F;          /* акцент на тёмном */
+  --red-deep:#E9283C;     /* фирменный, для заливок */
+  --red-dark:#C81F30;
+  --display:"Unbounded",system-ui,sans-serif;
+  --font:"Rubik",system-ui,sans-serif;
+  --r:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;font-size:16px}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;border:0;background:none;cursor:pointer;color:inherit}
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* MOTION 4: каскад на загрузке hero + плавные hover. Всё гасится reduced-motion. */
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.rise{animation:rise .6s cubic-bezier(.16,1,.3,1) both}
+.rise-1{animation-delay:.05s}.rise-2{animation-delay:.15s}.rise-3{animation-delay:.25s}.rise-4{animation-delay:.4s}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rise{animation:none}
+  *{transition:none!important;animation:none!important}
+}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;font-weight:600;font-size:15px;padding:13px 26px;transition:background .2s,border-color .2s,transform .15s,box-shadow .2s}
+.btn:active{transform:scale(.98)}
+.btn--red{background:var(--red-deep);color:#fff}
+.btn--red:hover{background:var(--red-dark);box-shadow:0 8px 30px rgba(233,40,60,.3)}
+.btn--ghost{border:1.5px solid var(--line);color:var(--text)}
+.btn--ghost:hover{border-color:rgba(255,255,255,.35)}
+.btn--sm{padding:9px 18px;font-size:14px}
+
+/* шапка */
+.header{position:sticky;top:0;z-index:50;background:rgba(13,14,18,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.header .container{display:flex;align-items:center;gap:26px;height:70px}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--display);font-size:14px;font-weight:700;letter-spacing:.01em}
+.brand__mark{width:36px;height:36px;border-radius:12px;background:var(--red-deep);display:grid;place-items:center;font-size:11px;color:#fff}
+.nav{display:flex;gap:24px;font-size:14.5px;font-weight:500;color:var(--muted);margin-left:auto}
+.nav a:hover{color:var(--text)}
+@media(max-width:980px){.nav{display:none}}
+
+/* hero */
+.hero{padding:72px 0 84px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-280px;right:-180px;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(233,40,60,.16),transparent 65%);pointer-events:none}
+.hero .container{display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:start;position:relative}
+.hero h1{font-family:var(--display);font-size:clamp(28px,3.6vw,44px);line-height:1.16;font-weight:700;letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero__lead{margin-top:22px;color:var(--muted);font-size:17px;max-width:28rem}
+.hero__points{margin-top:34px;display:grid;gap:14px;max-width:28rem}
+.hero__point{display:flex;gap:14px;align-items:flex-start;font-size:15px}
+.hero__point svg{width:22px;height:22px;flex:none;stroke:var(--red);margin-top:2px}
+.hero__point b{font-weight:600}
+.hero__point span{color:var(--muted);display:block;font-size:14px}
+.hero__alt{margin-top:36px;font-size:14.5px;color:var(--muted)}
+.hero__alt a{color:var(--text);font-weight:600;border-bottom:1px solid var(--line)}
+.hero__alt a:hover{border-color:var(--text)}
+@media(max-width:960px){.hero .container{grid-template-columns:1fr;gap:44px}}
+
+/* виджет записи */
+.widget{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.widget__head{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.widget__title{font-family:var(--display);font-size:15px;font-weight:700}
+.widget__step-label{font-size:13px;color:var(--muted)}
+.widget__bar{height:4px;border-radius:99px;background:var(--panel-2);margin-bottom:24px;overflow:hidden}
+.widget__bar i{display:block;height:100%;background:var(--red-deep);border-radius:99px;transition:width .35s cubic-bezier(.16,1,.3,1)}
+.wstep{display:none}
+.wstep.is-active{display:block;animation:rise .35s cubic-bezier(.16,1,.3,1) both}
+.wstep__q{font-size:16px;font-weight:600;margin-bottom:16px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;text-align:left;font-size:14.5px;font-weight:500;transition:border-color .18s,background .18s}
+.opt small{display:block;color:var(--muted);font-size:12.5px;margin-top:3px;font-weight:400}
+.opt:hover{border-color:rgba(255,255,255,.3)}
+.opt.is-picked{border-color:var(--red);background:rgba(233,40,60,.1)}
+.opts--slots{grid-template-columns:repeat(4,1fr)}
+.opt--slot{text-align:center;padding:11px 6px;font-size:14px}
+.slots-day{font-size:13px;color:var(--muted);margin:14px 0 8px}
+.slots-day:first-of-type{margin-top:0}
+.wform{display:grid;gap:12px}
+.wform input{height:48px;border:1.5px solid var(--line);border-radius:14px;background:var(--panel-2);padding:0 14px;font:inherit;font-size:15px;color:var(--text)}
+.wform input::placeholder{color:var(--muted)}
+.wform input:focus{outline:none;border-color:var(--red)}
+.widget__nav{display:flex;justify-content:space-between;gap:12px;margin-top:22px}
+.widget__back{color:var(--muted);font-size:14px;font-weight:500;padding:10px 4px}
+.widget__back:hover{color:var(--text)}
+.widget__back[hidden]{visibility:hidden}
+.widget__summary{background:var(--panel-2);border-radius:14px;padding:14px 16px;font-size:13.5px;color:var(--muted);margin-bottom:16px;display:grid;gap:4px}
+.widget__summary b{color:var(--text);font-weight:500}
+.widget__done{text-align:center;padding:26px 8px}
+.widget__done-icon{width:64px;height:64px;border-radius:50%;background:rgba(233,40,60,.14);display:grid;place-items:center;margin:0 auto 18px}
+.widget__done-icon svg{width:30px;height:30px;stroke:var(--red)}
+.widget__done h3{font-family:var(--display);font-size:17px;margin-bottom:8px}
+.widget__done p{color:var(--muted);font-size:14px}
+.widget__note{margin-top:18px;font-size:12px;color:var(--muted);text-align:center}
+
+/* ЛК: живой превью */
+.lk{padding:90px 0}
+.lk .container{display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:center}
+.lk h2{font-family:var(--display);font-size:clamp(24px,3vw,36px);line-height:1.18;font-weight:700}
+.lk h2 em{font-style:normal;color:var(--red)}
+.lk__lead{margin-top:18px;color:var(--muted);max-width:26rem}
+.lk__feats{margin-top:28px;display:grid;gap:12px;font-size:15px}
+.lk__feats li{list-style:none;display:flex;gap:12px;align-items:baseline}
+.lk__feats li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--red);flex:none;transform:translateY(-2px)}
+.app{background:var(--panel);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.app__bar{display:flex;gap:6px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.app__bar i{width:10px;height:10px;border-radius:50%;background:var(--panel-2)}
+.app__tabs{display:flex;gap:4px;padding:14px 18px 0}
+.app__tab{padding:9px 16px;border-radius:12px 12px 0 0;font-size:14px;font-weight:500;color:var(--muted);transition:color .18s,background .18s}
+.app__tab.is-active{background:var(--panel-2);color:var(--text)}
+.app__body{background:var(--panel-2);margin:0 18px 18px;border-radius:0 14px 14px 14px;padding:18px;min-height:250px}
+.app__pane{display:none}
+.app__pane.is-active{display:block;animation:rise .3s cubic-bezier(.16,1,.3,1) both}
+.rowitem{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.rowitem:last-child{border-bottom:0}
+.rowitem b{font-weight:500}
+.rowitem small{display:block;color:var(--muted);font-size:12.5px}
+.tag{font-size:12px;font-weight:600;border-radius:99px;padding:4px 12px;white-space:nowrap}
+.tag--ok{background:rgba(233,40,60,.14);color:var(--red)}
+.tag--wait{background:rgba(255,255,255,.07);color:var(--muted)}
+.app__dl{display:inline-block;margin-top:14px;font-size:13.5px;color:var(--red);font-weight:500}
+@media(max-width:960px){.lk .container{grid-template-columns:1fr}}
+
+/* услуги: бенто */
+.bento{padding:0 0 90px}
+.bento h2{font-family:var(--display);font-size:clamp(24px,3vw,36px);font-weight:700;margin-bottom:40px;max-width:24ch;line-height:1.18}
+.bento__grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:200px;gap:16px}
+.cell{border:1px solid var(--line);border-radius:var(--r);padding:26px;display:flex;flex-direction:column;background:var(--panel);transition:transform .2s,border-color .2s}
+.cell:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.25)}
+.cell--tall{grid-row:span 2}
+.cell--photo{padding:0;position:relative;overflow:hidden}
+.cell--photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.8}
+.cell--photo .cell__overlay{position:relative;z-index:1;margin-top:auto;padding:26px;background:linear-gradient(transparent,rgba(13,14,18,.9) 45%)}
+.cell--red{background:var(--red-deep);border-color:transparent}
+.cell--red .cell__desc{color:rgba(255,255,255,.8)}
+.cell__name{font-family:var(--display);font-size:17px;font-weight:700;line-height:1.25}
+.cell__desc{margin-top:9px;font-size:14px;color:var(--muted);max-width:26rem}
+.cell__price{margin-top:auto;padding-top:14px;font-size:15px;font-weight:600}
+.cell--red .cell__price{color:#fff}
+.cell__price small{color:var(--muted);font-weight:400}
+.cell--red .cell__price small{color:rgba(255,255,255,.75)}
+@media(max-width:960px){.bento__grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.bento__grid{grid-template-columns:1fr;grid-auto-rows:auto}.cell{min-height:150px}.cell--tall{grid-row:auto}}
+
+/* центры */
+.centers{padding:0 0 90px}
+.centers h2{font-family:var(--display);font-size:clamp(24px,3vw,36px);font-weight:700;margin-bottom:40px;line-height:1.18}
+.centers__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.center{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:10px}
+.center__name{font-family:var(--display);font-size:16px;font-weight:700}
+.center__addr{font-size:14px;color:var(--muted)}
+.center__hours{font-size:13.5px;color:var(--red);font-weight:500}
+.center__foot{margin-top:auto;padding-top:14px;display:flex;gap:14px;align-items:center}
+.center__map{font-size:13.5px;color:var(--muted);font-weight:500}
+.center__map:hover{color:var(--text)}
+@media(max-width:900px){.centers__grid{grid-template-columns:1fr}}
+
+/* отзыв-полоса */
+.quote{padding:0 0 90px}
+.quote__card{border:1px solid var(--line);border-radius:24px;padding:44px 48px;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;background:linear-gradient(120deg,rgba(233,40,60,.08),transparent 55%)}
+.quote__mark{font-family:var(--display);font-size:64px;line-height:1;color:var(--red);font-weight:700}
+.quote__card blockquote{font-size:clamp(16px,1.9vw,20px);line-height:1.55}
+.quote__card figcaption{margin-top:12px;font-size:14px;color:var(--muted)}
+.quote__card figcaption b{color:var(--text)}
+@media(max-width:720px){.quote__card{grid-template-columns:1fr;padding:32px}}
+
+/* FAQ */
+.faq{padding:0 0 90px}
+.faq h2{font-family:var(--display);font-size:clamp(24px,3vw,36px);font-weight:700;margin-bottom:36px;line-height:1.18}
+.faq__list{max-width:760px}
+.faq-item{border:1px solid var(--line);border-radius:var(--r);margin-bottom:12px;background:var(--panel)}
+.faq-item summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;padding:18px 24px;font-weight:500;font-size:15.5px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";font-size:22px;color:var(--red);transition:transform .2s;flex:none}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item p{padding:0 24px 18px;color:var(--muted);font-size:14.5px}
+
+/* CTA */
+.cta{padding:0 0 90px}
+.cta__card{background:var(--red-deep);border-radius:28px;padding:56px;display:flex;justify-content:space-between;align-items:center;gap:36px;flex-wrap:wrap}
+.cta h2{font-family:var(--display);font-size:clamp(22px,2.8vw,32px);font-weight:700;line-height:1.2;max-width:20ch}
+.cta__actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn--white{background:#fff;color:var(--red-deep)}
+.btn--white:hover{background:#FFE2E6}
+.cta .btn--ghost{border-color:rgba(255,255,255,.45);color:#fff}
+.cta .btn--ghost:hover{border-color:#fff}
+
+/* футер */
+.footer{border-top:1px solid var(--line);padding:52px 0 0;font-size:14.5px}
+.footer__grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.footer__col-title{font-weight:600;font-size:13.5px;margin-bottom:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.footer__col ul{list-style:none;display:grid;gap:9px}
+.footer__col a{color:var(--muted)}
+.footer__col a:hover{color:var(--text)}
+.footer__about{color:var(--muted);margin-top:14px;max-width:30rem;font-size:14px}
+.footer__contacts{margin-top:16px;display:grid;gap:6px;font-weight:500}
+.footer__bottom{margin-top:44px;border-top:1px solid var(--line);padding:18px 0;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.disclaimer{background:#000;color:var(--muted);text-align:center;font-size:12.5px;padding:11px 24px}
+@media(max-width:900px){.footer__grid{grid-template-columns:1fr 1fr}}
+</style>
+<link href="../../site/data.css" rel="stylesheet"/><script defer="" src="../../site/data.js"></script></head>
+<body><div class="dl-utility"><a href="../../analyses/">Каталог анализов и цены →</a><a href="../">Все направления дизайна</a></div>
+<header class="header" id="top">
+<div class="container">
+<a class="brand" href="#top">
+<span class="brand__mark">Д·Л</span>
+      ДОКТОР И ЛАБОРАТОРИЯ
+    </a>
+<nav aria-label="Главное меню" class="nav">
+<a href="#booking">Запись</a>
+<a href="#lk">Личный кабинет</a>
+<a href="#services">Услуги и цены</a>
+<a href="#centers">Центры</a>
+<a href="#faq">FAQ</a>
+</nav>
+<a class="btn btn--ghost btn--sm" href="#lk">Войти в ЛК</a>
+<a class="btn btn--red btn--sm" href="#booking">Записаться</a>
+</div>
+</header>
+<!-- HERO + ВИДЖЕТ -->
+<section class="hero" id="booking">
+<div class="container">
+<div>
+<h1 class="rise rise-1">Анализы и запись <em>в одном месте</em>.</h1>
+<p class="hero__lead rise rise-2">Найдите исследование в каталоге, посмотрите стоимость и подготовку. Онлайн-запись появится после подключения Yclients.</p>
+<div class="hero__points rise rise-3"><div class="hero__point"><div><b><span data-analysis-count="">—</span> позиций в каталоге</b><span>Поиск по коду или названию</span></div></div><div class="hero__point"><div><b><a href="../../analyses/">В каталоге</a></b><span>Забор биоматериала оплачивается отдельно</span></div></div><div class="hero__point"><div><b>Описание и подготовка</b><span>В карточке анализа или по ссылке на ДНКом</span></div></div></div>
+<p class="hero__alt rise rise-3">Привычнее по телефону? <a data-setting-phone="">Контакты будут добавлены</a></p>
+</div>
+<div class="widget rise rise-4" data-widget=""><h2>Онлайн-запись</h2><p class="dl-empty" data-booking-placeholder="">Запись появится после подключения Yclients.</p><a class="dl-content-button" data-setting-booking="" hidden="">Открыть онлайн-запись</a></div>
+</div>
+</section>
+<!-- ЛИЧНЫЙ КАБИНЕТ -->
+<section class="lk" id="lk">
+<div class="container"><h2>Результаты исследований</h2><p class="dl-empty">Способ получения результатов уточняйте в центре. Личный кабинет пока не подключён.</p></div>
+</section>
+<!-- УСЛУГИ: бенто -->
+<section class="bento" id="services">
+<div class="container">
+<h2>Услуги и цены — без звёздочек</h2>
+<div class="bento__grid">
+<div class="cell cell--tall cell--photo">
+<img alt="" loading="lazy" src="../assets/lab.jpg"/>
+<div class="cell__overlay">
+<div class="cell__name">Анализы DNKOM</div>
+<div class="cell__desc">Анализы, результаты в течение суток. Запись не нужна.</div>
+<div class="cell__price"><a href="../../analyses/">В каталоге</a></div>
+</div>
+</div>
+<div class="cell">
+<div class="cell__name">УЗИ экспертного класса</div>
+<div class="cell__desc">Протокол на руки за 15 минут. 8 видов исследований.</div>
+<div class="cell__price">Стоимость уточняется</div>
+</div>
+<div class="cell cell--red">
+<div class="cell__name">Приём врача</div>
+<div class="cell__desc">Терапевт, кардиолог, гинеколог, эндокринолог, невролог, дерматолог.</div>
+<div class="cell__price">Стоимость уточняется</div>
+</div>
+<div class="cell">
+<div class="cell__name">Косметология</div>
+<div class="cell__desc">Врач-дерматолог до процедуры. Лазер, инъекции, уход.</div>
+<div class="cell__price">Стоимость уточняется</div>
+</div>
+<div class="cell">
+<div class="cell__name">Выезд на дом</div>
+<div class="cell__desc">Забор анализов и приём терапевта в Москве и ближайшем МО.</div>
+<div class="cell__price">Стоимость уточняется</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ЦЕНТРЫ -->
+<section class="centers" id="centers">
+<div class="container"><h2>Адреса и часы работы</h2><div class="dl-content-grid" data-managed="branches"><p class="dl-empty">Адреса и часы работы появятся после подтверждения.</p></div></div>
+</section>
+<!-- ОТЗЫВ -->
+<section class="quote">
+<div class="container"><h2>Отзывы</h2><div class="dl-content-grid" data-managed="reviews"><p class="dl-empty">Отзывы с проверенными источниками будут добавлены.</p></div></div>
+</section>
+<!-- FAQ -->
+<section class="faq" id="faq">
+<div class="container">
+<h2>Частые вопросы</h2>
+<div class="faq__list">
+<details class="faq-item">
+<summary>Можно ли сдать анализы без направления врача?</summary>
+<p>Да. На анализы запись не нужна — приходите в часы приёма биоматериала с паспортом: часы работы выбранного филиала.</p>
+</details>
+<details class="faq-item">
+<summary>Как быстро приходят результаты?</summary>
+<p>В течение суток, большинство — в день забора. Протокол УЗИ отдаём через 15 минут после исследования. Всё дублируется на e-mail и в личный кабинет.</p>
+</details>
+<details class="faq-item">
+<summary>Делаете ли вы УЗИ в день обращения?</summary>
+<p>Чаще всего да — в большинстве случаев свободные слоты есть в течение 24 часов. Актуальные слоты видны в онлайн-записи.</p>
+</details>
+<details class="faq-item">
+<summary>Принимаете ли вы детей?</summary>
+<p>Да, с 0 лет. Есть педиатр, забор крови у детей, УЗИ детских органов, справки в сад и школу. Детская зона ожидания — в каждом центре.</p>
+</details>
+<details class="faq-item">
+<summary>Как оплатить услуги?</summary>
+<p>Картой, СБП или наличными в центре. После приёма выдаём чек и справку для налогового вычета. По ДМС — по списку партнёров.</p>
+</details>
+</div>
+</div>
+</section>
+<!-- CTA -->
+<section class="cta">
+<div class="container">
+<div class="cta__card">
+<h2>Запишитесь сегодня. Примем уже завтра</h2>
+<div class="cta__actions">
+<a class="btn btn--white" href="#booking">Записаться</a>
+<a class="btn btn--ghost" data-setting-phone="">Контакты будут добавлены</a>
+</div>
+</div>
+</div>
+</section>
+<section class="dl-managed-section" id="doctors"><div class="container"><h2>Наши врачи</h2><div class="dl-content-grid" data-managed="doctors"><p class="dl-empty">Информация о врачах появится после подтверждения.</p></div></div></section><section class="dl-managed-section" id="promotions"><div class="container"><h2>Акции</h2><div class="dl-content-grid" data-managed="promotions"><p class="dl-empty">Сейчас нет опубликованных акций.</p></div></div></section><footer class="footer"><div class="container"><div class="brand">Доктор и Лаборатория</div><div class="dl-footer-links"><a href="../../analyses/">Анализы и цены</a><a data-setting-phone="">Контакты будут добавлены</a><a data-setting-email=""></a><a data-setting-booking="" hidden="">Онлайн-запись</a></div><div class="dl-managed-legal" data-managed-legal=""><p class="dl-content-note">Реквизиты и документы будут добавлены после подтверждения.</p></div><p class="dl-content-note">Имеются противопоказания. Необходима консультация специалиста.</p></div></footer>
+<div class="disclaimer">Имеются противопоказания. Необходима консультация специалиста.</div>
+</body>
+</html>
+

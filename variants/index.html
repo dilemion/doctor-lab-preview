@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Доктор и Лаборатория — 5 дизайн-направлений главной страницы</title>
+<style>
+:root{
+  --bg:#FAFAF8; --ink:#17181A; --muted:#5F6368; --border:#E5E4E0;
+  --red:#E9283C; --red-dark:#C81F30;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px;padding:56px 24px}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:clamp(26px,4vw,38px);letter-spacing:-.02em;line-height:1.15}
+h1 em{font-style:normal;color:var(--red)}
+.lead{margin-top:14px;color:var(--muted);max-width:44rem}
+.list{margin-top:44px;display:grid;gap:14px}
+.item{display:grid;grid-template-columns:64px 1fr auto;gap:22px;align-items:center;background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px 28px;text-decoration:none;color:inherit;transition:transform .15s,box-shadow .15s,border-color .15s}
+.item:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(23,24,26,.08);border-color:#CFCECA}
+.item__num{font-size:26px;font-weight:800;letter-spacing:-.02em;color:var(--red)}
+.item__name{font-weight:700;font-size:18px;letter-spacing:-.01em}
+.item__desc{margin-top:5px;font-size:14.5px;color:var(--muted)}
+.item__go{font-size:20px;color:var(--muted)}
+.item:hover .item__go{color:var(--red)}
+.note{margin-top:40px;padding:20px 24px;border:1px dashed var(--border);border-radius:14px;font-size:14px;color:var(--muted)}
+.note b{color:var(--ink)}
+@media(max-width:640px){.item{grid-template-columns:44px 1fr;gap:14px}.item__go{display:none}}
+</style>
+<link href="../site/data.css" rel="stylesheet"/></head>
+<body>
+<div class="wrap">
+<h1>Доктор и Лаборатория: <em>5 дизайн-направлений</em> главной</h1><a class="dl-content-button" href="../analyses/">Открыть каталог анализов и цены</a>
+<p class="lead">Пять самостоятельных концептов на одном и том же реальном контенте (услуги, цены, врачи, центры из v5). Это разные направления дизайна, а не перекраска одного макета. Красный логотипа — фирменный якорь во всех пяти.</p>
+<div class="list">
+<a class="item" href="./01-lab/index.html">
+<span class="item__num">01</span>
+<span>
+<span class="item__name">«Лаборатория»</span>
+<span class="item__desc" style="display:block">Каталог и поиск анализов в hero, «лабораторный бланк» с цифрами доверия, клиническая строгость: IBM Plex, плоские поверхности, данные в моноширинном (ближе к CMD).</span>
+</span>
+<span class="item__go">→</span>
+</a>
+<a class="item" href="./02-doctors/index.html">
+<span class="item__num">02</span>
+<span>
+<span class="item__name">«Врачи»</span>
+<span class="item__desc" style="display:block">Лица и отзывы вперёд: тёплая палитра, арочные портретные рамы, тёмная секция врачей с «парящими» карточками (ближе к Major Clinic).</span>
+</span>
+<span class="item__go">→</span>
+</a>
+<a class="item" href="./03-hybrid/index.html">
+<span class="item__num">03</span>
+<span>
+<span class="item__name">Гибрид «Две двери»</span>
+<span class="item__desc" style="display:block">Два равных входа в hero: «Сдать анализ» (без записи) и «Записаться к врачу»; холодный и тёплый оттенки маркируют путь через всю страницу. Manrope — эволюция текущего бренда.</span>
+</span>
+<span class="item__go">→</span>
+</a>
+<a class="item" href="./04-private/index.html">
+<span class="item__num">04</span>
+<span>
+<span class="item__name">«Приватная медицина»</span>
+<span class="item__desc" style="display:block">Премиальный минимализм: серифный дисплей, галерейный воздух, услуги как меню-прейскурант, двуязычность RU/SR с переключателем и сербским «эхом» в заголовках.</span>
+</span>
+<span class="item__go">→</span>
+</a>
+<a class="item" href="./05-digital/index.html">
+<span class="item__num">05</span>
+<span>
+<span class="item__name">Digital-first</span>
+<span class="item__desc" style="display:block">Тёмная app-тема: работающий виджет онлайн-записи в 4 шага прямо в hero и живой превью личного кабинета — запись и результаты как главная ценность.</span>
+</span>
+<span class="item__go">→</span>
+</a>
+</div>
+<p class="note"><b>Как смотреть:</b> каждый вариант — самодостаточный index.html (стили и скрипты инлайн, изображения общие в ../assets). Шрифты подгружаются с Google Fonts. Телефон, адреса и часть цен — рабочие заглушки из v5, как и раньше. Кнопки «Записаться» открывают демо-форму; в финале — виджет Yclients.</p>
+</div>
+</body>
+</html>
+
