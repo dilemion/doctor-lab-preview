@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-09T12:18:11.558438+00:00",
+  "updated_at": "2026-10-09T12:58:43.774365+00:00",
   "city": "Москва",
   "city_id": "1157",
   "currency": "RUB",
   "pricing_status": "confirmed_docnlab_moscow",
   "pricing_confirmed_at": "2026-10-09",
   "source_url": "https://results.dnkom.ru/pricelist/moskva",
-  "source_sha256": "2ad6cdddb313349712c317c7875572545abfa037042de908092a6cb7d9012b30",
+  "source_sha256": "c2642bad7b77664d99046041ceb361a3c3cd244fbf55ba03d65a8cfd8d37d46e",
   "discount_status": "validated_main_catalogue",
   "count": 2583,
   "catalogue": {
