@@ -1,0 +1,451 @@
+{
+  "schema_version": 1,
+  "timezone": "Europe/Moscow",
+  "statuses": [
+    "draft",
+    "published",
+    "archived"
+  ],
+  "separator": ";",
+  "settings": {
+    "site_name": "text",
+    "tagline": "text",
+    "phone": "phone",
+    "email": "email",
+    "booking_url": "url",
+    "telegram_url": "url",
+    "whatsapp_url": "url",
+    "legal_name": "text",
+    "legal_address": "text",
+    "legal_inn": "digits",
+    "legal_ogrn": "digits",
+    "license_number": "text",
+    "license_url": "url",
+    "privacy_url": "url"
+  },
+  "tabs": {
+    "doctors": {
+      "title": "Доктора",
+      "columns": [
+        {
+          "header": "ID",
+          "key": "id",
+          "type": "id",
+          "required": true,
+          "help": "Не менять после первого размещения. Латиница, цифры, _ и -."
+        },
+        {
+          "header": "Статус",
+          "key": "status",
+          "type": "status",
+          "required": true,
+          "help": "draft — черновик; published — на сайте; archived — снято с сайта."
+        },
+        {
+          "header": "Порядок",
+          "key": "sort_order",
+          "type": "integer",
+          "required": true,
+          "min": 0,
+          "max": 100000,
+          "help": "Меньшее число показывается раньше. Например 10, 20, 30."
+        },
+        {
+          "header": "Имя",
+          "key": "name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "header": "Специализация",
+          "key": "specialty",
+          "type": "text",
+          "required": true
+        },
+        {
+          "header": "Описание",
+          "key": "bio",
+          "type": "text",
+          "required": false,
+          "max_length": 8000
+        },
+        {
+          "header": "Стаж_лет",
+          "key": "experience_years",
+          "type": "integer",
+          "required": false,
+          "min": 0,
+          "max": 100
+        },
+        {
+          "header": "Фото_URL",
+          "key": "photo_url",
+          "type": "image_url",
+          "required": false
+        },
+        {
+          "header": "Запись_URL",
+          "key": "booking_url",
+          "type": "url",
+          "required": false
+        },
+        {
+          "header": "Рейтинг",
+          "key": "rating",
+          "type": "rating",
+          "required": false
+        },
+        {
+          "header": "Рейтинг_источник_URL",
+          "key": "rating_source_url",
+          "type": "url",
+          "required": false
+        },
+        {
+          "header": "Примечание",
+          "key": "note",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    "branches": {
+      "title": "Филиалы",
+      "columns": [
+        {
+          "header": "ID",
+          "key": "id",
+          "type": "id",
+          "required": true,
+          "help": "Не менять после первого размещения. Латиница, цифры, _ и -."
+        },
+        {
+          "header": "Статус",
+          "key": "status",
+          "type": "status",
+          "required": true,
+          "help": "draft — черновик; published — на сайте; archived — снято с сайта."
+        },
+        {
+          "header": "Порядок",
+          "key": "sort_order",
+          "type": "integer",
+          "required": true,
+          "min": 0,
+          "max": 100000,
+          "help": "Меньшее число показывается раньше. Например 10, 20, 30."
+        },
+        {
+          "header": "Название",
+          "key": "name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "header": "Адрес",
+          "key": "address",
+          "type": "text",
+          "required": true
+        },
+        {
+          "header": "Телефон",
+          "key": "phone",
+          "type": "phone",
+          "required": false
+        },
+        {
+          "header": "Email",
+          "key": "email",
+          "type": "email",
+          "required": false
+        },
+        {
+          "header": "Часы_работы",
+          "key": "opening_hours",
+          "type": "text",
+          "required": false
+        },
+        {
+          "header": "Как_добраться",
+          "key": "directions",
+          "type": "text",
+          "required": false
+        },
+        {
+          "header": "Услуги",
+          "key": "services",
+          "type": "list",
+          "required": false
+        },
+        {
+          "header": "Широта",
+          "key": "latitude",
+          "type": "latitude",
+          "required": false
+        },
+        {
+          "header": "Долгота",
+          "key": "longitude",
+          "type": "longitude",
+          "required": false
+        },
+        {
+          "header": "Карты_URL",
+          "key": "maps_url",
+          "type": "url",
+          "required": false
+        },
+        {
+          "header": "Запись_URL",
+          "key": "booking_url",
+          "type": "url",
+          "required": false
+        },
+        {
+          "header": "Примечание",
+          "key": "note",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    "doctor_branches": {
+      "title": "Врачи и филиалы",
+      "columns": [
+        {
+          "header": "Врач_ID",
+          "key": "doctor_id",
+          "type": "id",
+          "required": true
+        },
+        {
+          "header": "Филиал_ID",
+          "key": "branch_id",
+          "type": "id",
+          "required": true
+        },
+        {
+          "header": "Статус",
+          "key": "status",
+          "type": "status",
+          "required": true
+        },
+        {
+          "header": "Примечание",
+          "key": "note",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    "reviews": {
+      "title": "Отзывы",
+      "columns": [
+        {
+          "header": "ID",
+          "key": "id",
+          "type": "id",
+          "required": true,
+          "help": "Не менять после первого размещения. Латиница, цифры, _ и -."
+        },
+        {
+          "header": "Статус",
+          "key": "status",
+          "type": "status",
+          "required": true,
+          "help": "draft — черновик; published — на сайте; archived — снято с сайта."
+        },
+        {
+          "header": "Порядок",
+          "key": "sort_order",
+          "type": "integer",
+          "required": true,
+          "min": 0,
+          "max": 100000,
+          "help": "Меньшее число показывается раньше. Например 10, 20, 30."
+        },
+        {
+          "header": "Автор",
+          "key": "author",
+          "type": "text",
+          "required": true
+        },
+        {
+          "header": "Оценка",
+          "key": "rating",
+          "type": "review_rating",
+          "required": true
+        },
+        {
+          "header": "Текст",
+          "key": "text",
+          "type": "text",
+          "required": true,
+          "max_length": 5000
+        },
+        {
+          "header": "Дата",
+          "key": "date",
+          "type": "date",
+          "required": false
+        },
+        {
+          "header": "Источник",
+          "key": "source_name",
+          "type": "text",
+          "required": false
+        },
+        {
+          "header": "Источник_URL",
+          "key": "source_url",
+          "type": "url",
+          "required": false
+        },
+        {
+          "header": "Филиал_ID",
+          "key": "branch_id",
+          "type": "id",
+          "required": false
+        },
+        {
+          "header": "Врач_ID",
+          "key": "doctor_id",
+          "type": "id",
+          "required": false
+        },
+        {
+          "header": "Примечание",
+          "key": "note",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    "promotions": {
+      "title": "Акции",
+      "columns": [
+        {
+          "header": "ID",
+          "key": "id",
+          "type": "id",
+          "required": true,
+          "help": "Не менять после первого размещения. Латиница, цифры, _ и -."
+        },
+        {
+          "header": "Статус",
+          "key": "status",
+          "type": "status",
+          "required": true,
+          "help": "draft — черновик; published — на сайте; archived — снято с сайта."
+        },
+        {
+          "header": "Порядок",
+          "key": "sort_order",
+          "type": "integer",
+          "required": true,
+          "min": 0,
+          "max": 100000,
+          "help": "Меньшее число показывается раньше. Например 10, 20, 30."
+        },
+        {
+          "header": "Заголовок",
+          "key": "title",
+          "type": "text",
+          "required": true
+        },
+        {
+          "header": "Категория",
+          "key": "category",
+          "type": "text",
+          "required": false
+        },
+        {
+          "header": "Описание",
+          "key": "description",
+          "type": "text",
+          "required": true,
+          "max_length": 5000
+        },
+        {
+          "header": "Изображение_URL",
+          "key": "image_url",
+          "type": "image_url",
+          "required": false
+        },
+        {
+          "header": "Дата_начала",
+          "key": "starts_on",
+          "type": "date",
+          "required": false
+        },
+        {
+          "header": "Дата_окончания",
+          "key": "ends_on",
+          "type": "date",
+          "required": false
+        },
+        {
+          "header": "Филиалы_ID",
+          "key": "branch_ids",
+          "type": "id_list",
+          "required": false
+        },
+        {
+          "header": "Коды_анализов",
+          "key": "test_codes",
+          "type": "code_list",
+          "required": false
+        },
+        {
+          "header": "Ссылка_URL",
+          "key": "link_url",
+          "type": "url",
+          "required": false
+        },
+        {
+          "header": "Условия",
+          "key": "terms",
+          "type": "text",
+          "required": false,
+          "max_length": 5000
+        },
+        {
+          "header": "Примечание",
+          "key": "note",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    "settings": {
+      "title": "Настройки",
+      "columns": [
+        {
+          "header": "Ключ",
+          "key": "key",
+          "type": "setting_key",
+          "required": true
+        },
+        {
+          "header": "Значение",
+          "key": "value",
+          "type": "text",
+          "required": true,
+          "max_length": 8000
+        },
+        {
+          "header": "Статус",
+          "key": "status",
+          "type": "status",
+          "required": true
+        },
+        {
+          "header": "Примечание",
+          "key": "note",
+          "type": "text",
+          "required": false
+        }
+      ]
+    }
+  }
+}

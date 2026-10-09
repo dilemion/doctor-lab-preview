@@ -1,0 +1,69 @@
+name: Daily Docnlab data
+
+on:
+  schedule:
+    # 06:17 Europe/Moscow (UTC+3); avoid the busy start of an hour.
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore: ['data/**', 'docs/**', '*.md']
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docnlab-data-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install -r scripts/requirements.txt
+      - run: python -m unittest discover -s tests -p 'test_*.py'
+      - run: node site/data.test.cjs
+      - run: python scripts/build_site.py --output _site
+
+  refresh-and-publish:
+    if: github.repository == 'dilemion/doctor-lab-preview' && github.event_name != 'pull_request'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      pages: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install -r scripts/requirements.txt
+      - name: Refresh prices and optional private Sheets
+        env:
+          DOCNLAB_SHEET_ID: ${{ vars.DOCNLAB_SHEET_ID }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: python scripts/refresh_site.py
+      - name: Save validated snapshots
+        run: |
+          git config user.name "Docnlab data updater"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/analyses.json data/content.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Обновил ежедневный снимок данных Docnlab"
+            git push origin HEAD:main
+          fi
+      - run: python scripts/build_site.py --output _site
+      - name: Publish existing GitHub Pages preview
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/publish_pages.py --source _site

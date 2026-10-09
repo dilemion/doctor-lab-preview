@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+_site/
+.preview/
+.cache/
+.env
+*token*.json
+*credentials*.json
+*client_secret*.json
+*service_account*.json
+.venv/
