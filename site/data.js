@@ -153,40 +153,8 @@
   function renderCatalog(data, base) {
     var root = document.querySelector('[data-analyses-catalog]');
     if (root) {
-      var input = root.querySelector('[data-analysis-search]');
-      var sale = root.querySelector('[data-discount-filter]');
-      var list = root.querySelector('[data-analysis-list]');
-      var count = root.querySelector('[data-result-count]');
-      var prev = root.querySelector('[data-page-prev]');
-      var next = root.querySelector('[data-page-next]');
-      var pageLabel = root.querySelector('[data-page-label]');
-      var page = 0; var size = 50;
-      var initial = new URL(window.location.href).searchParams.get('q');
-      if (initial) input.value = initial;
-      function render() {
-        var rows = filterServices(data.services, input.value, sale.checked);
-        var pages = Math.max(1, Math.ceil(rows.length / size)); page = Math.min(page, pages - 1);
-        list.replaceChildren();
-        if (!rows.length) empty(list, 'По этому запросу анализы не найдены. Попробуйте другое название или точный код.');
-        else rows.slice(page * size, (page + 1) * size).forEach(function (s) { list.append(serviceCard(s, base, false)); });
-        count.textContent = 'Найдено: ' + rows.length.toLocaleString('ru-RU');
-        pageLabel.textContent = 'Страница ' + (page + 1) + ' из ' + pages;
-        prev.disabled = page === 0; next.disabled = page + 1 >= pages;
-      }
-      input.addEventListener('input', function () { page = 0; render(); });
-      sale.addEventListener('change', function () { page = 0; render(); });
-      root.querySelector('form').addEventListener('submit', function (e) { e.preventDefault(); page = 0; render(); });
-      prev.addEventListener('click', function () { page -= 1; render(); list.scrollIntoView({ block: 'start' }); });
-      next.addEventListener('click', function () { page += 1; render(); list.scrollIntoView({ block: 'start' }); });
-      var status = root.querySelector('[data-analysis-status]');
-      status.textContent = 'Цены обновлены ' + dateLabel(data.updated_at) + ' · Москва · ' + data.services.length.toLocaleString('ru-RU') + ' позиций';
-      var ageDays = (Date.now() - new Date(data.updated_at).getTime()) / 86400000;
-      if (ageDays > 3) { status.append(document.createTextNode(' · обновление задерживается, уточните цену перед визитом')); status.classList.add('dl-status--warning'); }
-      if (['incomplete', 'unavailable'].includes(data.discount_status)) {
-        var note = root.querySelector('[data-discount-status]');
-        if (note) { note.hidden = false; note.textContent = 'Показаны только скидки, подтверждённые в карточках лаборатории.'; }
-      }
-      render();
+      if (!window.DocnlabCatalog) throw new Error('Search interface unavailable');
+      window.DocnlabCatalog.mount(data, base);
     }
     document.querySelectorAll('[data-featured-analyses]').forEach(function (container) {
       container.replaceChildren();
@@ -336,8 +304,11 @@
     var jobs = [];
     if (document.querySelector('[data-analyses-catalog], [data-featured-analyses], [data-analysis-count]')) jobs.push(load(new URL('data/analyses.json', base)).then(validateCatalog).then(function (data) { currentCatalog = data; renderCatalog(data, base); }).catch(function () {
       var status = document.querySelector('[data-analysis-status]');
-      if (status) status.textContent = 'Не удалось загрузить цены. Проверьте соединение и обновите страницу.';
+      if (status) status.textContent = 'Не удалось загрузить каталог';
+      var count = document.querySelector('[data-result-count]'); if (count) count.textContent = 'Каталог временно недоступен';
       document.querySelectorAll('[data-analysis-list], [data-featured-analyses]').forEach(function (n) { empty(n, 'Каталог временно недоступен. Попробуйте обновить страницу.'); });
+      var list = document.querySelector('[data-analysis-list]');
+      if (list) { list.setAttribute('aria-busy', 'false'); var retry = element('button', 'dl-retry', 'Попробовать ещё'); retry.type = 'button'; retry.addEventListener('click', function () { window.location.reload(); }); list.append(retry); }
       document.querySelectorAll('[data-page-prev], [data-page-next]').forEach(function (n) { n.disabled = true; });
     }));
     if (document.querySelector('[data-managed], [data-managed-legal], [data-setting-phone]')) jobs.push(load(new URL('data/content.json', base)).then(function (content) { manageContent(content, base); }).catch(function () {
