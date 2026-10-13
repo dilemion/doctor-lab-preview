@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Доктор и Лаборатория — Анализы, УЗИ, врачи. Вариант «Лаборатория»</title>
+<title>Доктор и Лаборатория — анализы, врачи и УЗИ</title>
 <meta content="Лабораторная диагностика DNKOM, УЗИ экспертного класса и приём врачей. 3 центра в Москве и Одинцово." name="description"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -231,8 +231,8 @@ button{font:inherit;border:0;background:none;cursor:pointer;color:inherit}
 .modal__form input:focus,.modal__form select:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(233,40,60,.12)}
 .modal__form small{color:var(--muted-2);font-size:12px;line-height:1.45}
 </style>
-<link href="../../site/data.css" rel="stylesheet"/><script defer="" src="../../site/data.js"></script></head>
-<body><div class="dl-utility"><a href="../../analyses/">Каталог анализов и цены →</a><a href="../">Все направления дизайна</a></div>
+<link href="../../site/data.css" rel="stylesheet"/><script defer="" src="../../site/data.js"></script><link href="../../site/search.css" rel="stylesheet"/><script defer="" src="../../site/search.js"></script></head>
+<body data-primary-design="lab"><div class="dl-utility"><a href="../../analyses/">Каталог анализов и цены →</a><a href="../">Все направления дизайна</a></div>
 <div class="topbar">
 <div class="container">
 <div class="topbar__centers" data-branch-summary="" hidden=""></div>
@@ -246,26 +246,24 @@ button{font:inherit;border:0;background:none;cursor:pointer;color:inherit}
       Доктор и Лаборатория
     </a>
 <nav aria-label="Главное меню" class="nav">
-<a href="#lab">Анализы</a>
+<a href="../../analyses/">Анализы</a>
 <a href="#uzi">УЗИ</a>
 <a href="#directions">Косметология</a>
 <a href="#doctors">Врачи</a>
 <a href="#centers">Центры</a>
-<a href="#faq">FAQ</a>
+<a href="#faq">Вопросы</a>
 </nav>
 <a class="header__phone" data-setting-phone="">Контакты будут добавлены</a>
 <button class="btn btn--red" data-book="" type="button">Записаться</button>
-</div>
-</header>
-<!-- HERO: поиск + лабораторный бланк -->
-<section class="hero">
+<details class="dl-mobile-nav"><summary>Меню</summary><nav aria-label="Мобильная навигация"><a href="../../analyses/">Анализы и цены</a><a href="#doctors">Врачи</a><a href="#centers">Центры</a><a href="#faq">Вопросы</a></nav></details></div>
+</header><main id="main-content"><section class="hero">
 <div class="container">
 <div>
-<h1>Анализы.<br/>Один забор крови. <em>Без записи.</em></h1>
-<p class="hero__lead">Лаборатория DNKOM, УЗИ экспертного класса и приём врачей в трёх центрах Москвы и Одинцово. Приходите в часы забора с паспортом.</p>
-<form class="search" data-catalog-search-form="" role="search">
-<input aria-label="Поиск анализа" data-search-input="" placeholder="Найти анализ или комплекс: ТТГ, ферритин, витамин D…" type="search"/>
-<button type="submit">Искать</button>
+<h1>Анализы.<br/>Цена и подготовка — <em>до визита.</em></h1>
+<p class="hero__lead">Найдите анализ из назначения врача. Проверьте цену и правила подготовки, соберите список для визита.</p>
+<label class="dl-home-search-label" for="home-analysis-search">Название или сокращение анализа</label><form action="../../analyses/" class="search" data-catalog-search-form="" method="get" role="search">
+<input aria-label="Поиск анализа" autocomplete="off" data-search-input="" id="home-analysis-search" maxlength="200" name="q" placeholder="Например, ТТГ, ферритин или витамин D" type="search"/>
+<button type="submit">Найти</button>
 </form>
 <div class="chips">
 <span>Часто ищут:</span>
@@ -275,40 +273,34 @@ button{font:inherit;border:0;background:none;cursor:pointer;color:inherit}
 <a class="chip" href="../../analyses/?q=%D0%9E%D0%90%D0%9A">ОАК</a>
 <a class="chip" href="../../analyses/?q=%D0%93%D0%BE%D1%80%D0%BC%D0%BE%D0%BD%D1%8B">Гормоны</a>
 </div>
-<p class="hero__note">Поиск по всем анализам и комплексам: введите название или точный код.</p>
+<p class="hero__note">В списке будут только выбранные вами позиции. Взятие биоматериала оплачивается отдельно.</p>
 </div>
-<aside aria-label="Ключевые цифры сети" class="sheet">
-<div class="sheet__head"><span>Доктор и Лаборатория</span><b>сеть · с 2017</b></div>
+<aside aria-label="Кратко о каталоге" class="sheet">
+<div class="sheet__head"><span>Доктор и Лаборатория</span><b>Каталог</b></div>
 <div class="sheet__rows">
 <div class="sheet__row"><span class="sheet__label">Позиций в каталоге</span><span class="sheet__val" data-analysis-count="">—</span></div>
 <div class="sheet__row"><span class="sheet__label">Результаты</span><span class="sheet__val">В карточке анализа</span></div>
 <div class="sheet__row"><span class="sheet__label">Стоимость</span><span class="sheet__val"><a href="../../analyses/">В каталоге</a></span></div>
-<div class="sheet__row"><span class="sheet__label">УЗИ</span><span class="sheet__val">Стоимость уточняется</span></div>
-<div class="sheet__row"><span class="sheet__label">Приём врача</span><span class="sheet__val">Стоимость уточняется</span></div>
+<div class="sheet__row"><span class="sheet__label">Подготовка</span><span class="sheet__val">В карточке анализа</span></div>
+<div class="sheet__row"><span class="sheet__label">Назначение</span><span class="sheet__val">Сохраните в список</span></div>
 </div>
-<div class="sheet__foot">Забор биоматериала оплачивается отдельно. Срок зависит от исследования.</div>
+<div class="sheet__foot">Скидка уже учтена в цене.</div>
 </aside>
 </div>
-</section>
-<!-- КОМПЛЕКСЫ: каталог -->
-<section class="section" id="lab">
+</section><section class="section" id="lab">
 <div class="container">
-<div class="section__head"><h2 class="h2">Анализы и комплексы</h2><p>Цена, срок и подготовка к исследованию — в общем каталоге.</p></div>
-<div class="dl-featured" data-catalog="" data-codes="62.056,10.308,99.022,14.149,18.100,35.102" data-featured-analyses=""><p class="dl-empty">Загружаем анализы и цены…</p></div>
+<div class="section__head"><h2 class="h2">Примеры из каталога</h2><p>Посмотрите цену, откройте подготовку или найдите нужное исследование по назначению.</p></div>
+<div class="dl-featured" data-catalog="" data-codes="14.149,62.056,10.308,99.022" data-featured-analyses=""><p class="dl-empty">Загружаем анализы и цены…</p></div>
 <div class="catalog-actions"><a class="dl-content-button" href="../../analyses/">Открыть все анализы</a><p class="dl-content-note">Забор биоматериала оплачивается отдельно.</p></div>
 </div>
-</section>
-<!-- ГРАФИК ЗАБОРА -->
-<section class="section section--alt">
+</section><section class="section section--alt">
 <div class="container schedule"><h2 class="h2">Часы приёма биоматериала</h2><div class="dl-content-grid" data-managed="branches"><p class="dl-empty">Адреса и часы работы появятся после подтверждения.</p></div></div>
-</section>
-<!-- УЗИ -->
-<section class="section" id="uzi">
+</section><section class="section" id="uzi">
 <div class="container">
 <div class="section__head">
-<div class="eyebrow">УЗИ · экспертный класс</div>
-<h2 class="h2">УЗИ, которому доверяют хирурги</h2>
-<p>Аппараты экспертного класса, врачи УЗД с опытом 10+ лет. Протокол на руки в течение 15 минут — его принимают в любом стационаре Москвы.</p>
+<div class="eyebrow">Ультразвуковая диагностика</div>
+<h2 class="h2">УЗИ</h2>
+<p>Информация о врачах, стоимости и записи будет добавлена после подтверждения клиникой.</p>
 </div>
 <div class="uzi-grid">
 <div class="uzi-cell"><span class="uzi-cell__name">Брюшная полость</span><span class="uzi-cell__price">Стоимость уточняется</span></div>
@@ -320,14 +312,9 @@ button{font:inherit;border:0;background:none;cursor:pointer;color:inherit}
 <div class="uzi-cell"><span class="uzi-cell__name">УЗИ при беременности</span><span class="uzi-cell__price">Стоимость уточняется</span></div>
 <div class="uzi-cell"><span class="uzi-cell__name">УЗИ ребёнку</span><span class="uzi-cell__price">Стоимость уточняется</span></div>
 </div>
-<div class="uzi-note">
-<span><b>Протокол за 15 минут</b> после исследования</span>
-<span>Свободные слоты — обычно <b>в течение 24 часов</b></span>
+
 </div>
-</div>
-</section>
-<!-- КОСМЕТОЛОГИЯ И ПРОЧЕЕ -->
-<section class="section section--alt" id="directions">
+</section><section class="section section--alt" id="directions">
 <div class="container">
 <div class="section__head">
 <h2 class="h2">Косметология и малые процедуры</h2>
@@ -366,80 +353,58 @@ button{font:inherit;border:0;background:none;cursor:pointer;color:inherit}
 </div>
 </div>
 </div>
-</section>
-<!-- ЦЕНТРЫ -->
-<section class="section" id="centers">
+</section><section class="section" id="centers">
 <div class="container"><h2>Адреса и часы работы</h2><div class="dl-content-grid" data-managed="branches"><p class="dl-empty">Адреса и часы работы появятся после подтверждения.</p></div></div>
-</section>
-<!-- ВРАЧИ: реестр -->
-<section class="section section--alt" id="doctors">
+</section><section class="section section--alt" id="doctors">
 <div class="container"><h2>Наши врачи</h2><div class="dl-content-grid" data-managed="doctors"><p class="dl-empty">Информация о врачах появится после подтверждения.</p></div></div>
-</section>
-<!-- ОТЗЫВЫ -->
-<section class="section">
+</section><section class="section">
 <div class="container"><h2 class="h2">Отзывы</h2><div class="dl-content-grid" data-managed="reviews"><p class="dl-empty">Отзывы с проверенными источниками будут добавлены.</p></div></div>
-</section>
-<!-- FAQ -->
-<section class="section section--alt" id="faq">
+</section><section class="section section--alt" id="faq">
 <div class="container">
 <div class="section__head">
 <h2 class="h2">Частые вопросы</h2>
 </div>
-<div class="faq">
-<details class="faq-item">
-<summary>Нужно ли быть прикреплённым к ОМС?</summary>
-<p>Нет. Мы — частная сеть медицинских центров и работаем по платным услугам и ДМС. Полис ОМС и прикрепление не требуются.</p>
-</details>
-<details class="faq-item">
-<summary>Можно ли сдать анализы без направления врача?</summary>
-<p>Да. На анализы запись не нужна — приходите в часы приёма биоматериала с паспортом. Если нужен подбор комплекса, администратор поможет выбрать.</p>
-</details>
-<details class="faq-item">
-<summary>Делаете ли вы УЗИ в день обращения?</summary>
-<p>Чаще всего да — в большинстве случаев свободные слоты есть в течение 24 часов. Уточните у администратора по телефону или через онлайн-запись.</p>
-</details>
-<details class="faq-item">
-<summary>Можно ли получить заключение в электронном виде?</summary>
-<p>Да. Результаты анализов и протокол УЗИ отправляем на e-mail сразу после готовности. По запросу делаем заверенную копию на бумаге.</p>
-</details>
-<details class="faq-item">
-<summary>Принимаете ли вы детей?</summary>
-<p>Да, с 0 лет. Есть педиатр, забор крови у детей, УЗИ детских органов, справки в сад и школу. Детская зона ожидания — в каждом центре.</p>
-</details>
-<details class="faq-item">
-<summary>Делаете ли вы выезд на дом?</summary>
-<p>Да — забор анализов и приём терапевта в Москве и ближайшем Подмосковье. Заявка через администратора, выезд обычно в течение суток.</p>
-</details>
-<details class="faq-item">
-<summary>Как оплатить услуги?</summary>
-<p>Картой, СБП или наличными в центре. После приёма выдаём чек и справку для налогового вычета. По ДМС — по списку партнёров.</p>
-</details>
+<div class="faq"><details class="faq-item"><summary>Как найти анализ из назначения?</summary><p>Введите название или сокращение из назначения. Например, ТТГ, ферритин или витамин D.</p></details><details class="faq-item"><summary>Что входит в цену анализа?</summary><p>В карточке показана цена исследования с учётом действующей скидки. Взятие биоматериала оплачивается отдельно; его стоимость зависит от способа забора.</p></details><details class="faq-item"><summary>Где посмотреть подготовку?</summary><p>Откройте «Описание и подготовка» у нужного анализа. Правила зависят от исследования. Если описание ещё не загружено, в карточке есть ссылка на ДНКом.</p></details><details class="faq-item"><summary>Можно ли сохранить несколько анализов?</summary><p>Добавляйте нужные позиции в «Мой список». Их названия и стоимость можно скопировать. Список сохраняется в текущей вкладке браузера и не является оформленным заказом.</p></details></div>
 </div>
-</div>
-</section>
-<!-- CTA -->
-<section class="section">
+</section><section class="section">
 <div class="container">
 <div class="cta">
 <div class="cta__inner">
 <div>
-<h2>Платите за качество, а не за бренд</h2>
-<p>Те же реактивы и стандарты, что у федеральной сети DNKOM из 200+ лабораторий. Цены ниже сетевых на 15–30%.</p>
-<div class="cta__actions">
-<button class="btn btn--white" data-book="" type="button">Записаться</button>
-<a class="btn btn--line" data-setting-phone="">Контакты будут добавлены</a>
-</div>
+<h2>Соберите список перед визитом</h2>
+<p>Найдите анализы из назначения, проверьте подготовку и сохраните список с ценами.</p>
+<div class="cta__actions"><a class="btn btn--white" href="../../analyses/">Открыть каталог</a></div>
 </div>
 <div class="cta__panel">
-<div class="cta__panel-row"><span>Партнёр с 2018 года</span><b>DNKOM</b></div>
-<div class="cta__panel-row"><span>Лабораторий в сети партнёра</span><b>200+</b></div>
-<div class="cta__panel-row"><span>Результаты принимают</span><b>все клиники Москвы</b></div>
+<div class="cta__panel-row"><span>Поиск</span><b>По названию и сокращению</b></div>
+<div class="cta__panel-row"><span>Цена</span><b>Со скидкой</b></div>
+<div class="cta__panel-row"><span>Подготовка</span><b>В карточке анализа</b></div>
 </div>
 </div>
 </div>
 </div>
-</section>
-<section class="dl-managed-section" id="promotions"><div class="container"><h2>Акции</h2><div class="dl-content-grid" data-managed="promotions"><p class="dl-empty">Сейчас нет опубликованных акций.</p></div></div></section><footer class="footer"><div class="container"><div class="brand">Доктор и Лаборатория</div><div class="dl-footer-links"><a href="../../analyses/">Анализы и цены</a><a data-setting-phone="">Контакты будут добавлены</a><a data-setting-email=""></a><a data-setting-booking="" hidden="">Онлайн-запись</a></div><div class="dl-managed-legal" data-managed-legal=""><p class="dl-content-note">Реквизиты и документы будут добавлены после подтверждения.</p></div><p class="dl-content-note">Имеются противопоказания. Необходима консультация специалиста.</p></div></footer>
+</section><section class="dl-managed-section" id="promotions"><div class="container"><h2>Акции</h2><div class="dl-content-grid" data-managed="promotions"><p class="dl-empty">Сейчас нет опубликованных акций.</p></div></div></section></main>
+<!-- HERO: поиск + лабораторный бланк -->
+
+<!-- КОМПЛЕКСЫ: каталог -->
+
+<!-- ГРАФИК ЗАБОРА -->
+
+<!-- УЗИ -->
+
+<!-- КОСМЕТОЛОГИЯ И ПРОЧЕЕ -->
+
+<!-- ЦЕНТРЫ -->
+
+<!-- ВРАЧИ: реестр -->
+
+<!-- ОТЗЫВЫ -->
+
+<!-- FAQ -->
+
+<!-- CTA -->
+
+<footer class="footer"><div class="container"><div class="brand">Доктор и Лаборатория</div><div class="dl-footer-links"><a href="../../analyses/">Анализы и цены</a><a data-setting-phone="">Контакты будут добавлены</a><a data-setting-email=""></a><a data-setting-booking="" hidden="">Онлайн-запись</a></div><div class="dl-managed-legal" data-managed-legal=""><p class="dl-content-note">Реквизиты и документы будут добавлены после подтверждения.</p></div><p class="dl-content-note">Имеются противопоказания. Необходима консультация специалиста.</p></div></footer>
 <div class="disclaimer">Имеются противопоказания. Необходима консультация специалиста.</div>
 <!-- МОДАЛКА ЗАПИСИ -->
 <div aria-labelledby="modal-title" aria-modal="true" class="modal" data-modal="" hidden="" role="dialog">
@@ -448,4 +413,3 @@ button{font:inherit;border:0;background:none;cursor:pointer;color:inherit}
 </div>
 </body>
 </html>
-
